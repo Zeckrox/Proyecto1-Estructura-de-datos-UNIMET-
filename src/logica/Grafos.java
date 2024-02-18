@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package grafos;
+package logica;
 
 /**
  *
- * @author Stefano
+ * @author Stefano Boschetti
+ * @author Diego De Jesus
  */
 public class Grafos {
 
@@ -20,13 +21,21 @@ public class Grafos {
         myGrafo.crearVertice("Barquisimeto");
         myGrafo.crearVertice("Cumanare");
         myGrafo.crearVertice("Cagua");
-        myGrafo.crearArista(0,1,75);
-        myGrafo.crearArista(1,4,100);
-        myGrafo.crearArista(4,2,23);
-        myGrafo.crearArista(2,3,50);
+        myGrafo.crearArista(0,1,800);
+        myGrafo.crearArista(0,2,500);
+        myGrafo.crearArista(1,4,800);
+        myGrafo.crearArista(4,3,700);
         myGrafo.print();
         myGrafo.inicializarValores(0,3);
-        Hormiga myHormiga = new Hormiga(1,3,4,myGrafo);
-        myHormiga.viajar();
+        System.out.println(myGrafo.listaAdy[0].first.feromonas);
+        System.out.println(myGrafo.listaAdy[0].first.next.feromonas);
+        Hormiga myHormiga = new Hormiga(0,3,5,myGrafo);
+        for(int i = 0; i<1000; i++)
+        new Hormiga(0,3,5,myGrafo).buscarComida();
+        
+        System.out.println(myGrafo.listaAdy[0].first.feromonas);
+        System.out.println(myGrafo.listaAdy[0].first.next.feromonas);
+
+        
     }
 }
