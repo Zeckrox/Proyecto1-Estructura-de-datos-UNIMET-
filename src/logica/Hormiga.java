@@ -16,14 +16,13 @@ public class Hormiga {
     public static int gradoVisibilidadCiudad = 2;
     public static int aprendizaje = 1;
     public final int constanteQ = 1;
-    public final float factorEvaporacion = (float) 0.5;
     public static int cantidadCiudades;
     public static int ciudadesVisitadas[];
     public static int cantidadVisitadas;
     public static Grafo grafo;
     public static int ubicacion;
     
-    public Hormiga(int nest, int food, int cities, Grafo grafoPadre){
+    public Hormiga(int nest, int food, int cities, Grafo grafoPadre, int importanciaFeromona, int visibilidadCiudad){
         nido = nest;
         ubicacion = nest;
         comida = food;
@@ -32,6 +31,8 @@ public class Hormiga {
         ciudadesVisitadas[0] = nest;
         cantidadVisitadas = 1;
         grafo = grafoPadre;
+        gradoImportanciaFeromona = importanciaFeromona;
+        gradoVisibilidadCiudad = visibilidadCiudad;
     }
     
     private boolean seVisito(int idCiudad){
@@ -56,14 +57,6 @@ public class Hormiga {
     private void actualizarFeromonas(NodoArista caminoActualizar){
         float incremento = (float) constanteQ / caminoActualizar.distancia;
         caminoActualizar.feromonas += incremento;
-    }
-    
-    public void evaporarFeromonas(){
-        for(int i = 0; i < grafo.numVertices; i++){
-            for(NodoArista auxNodo = grafo.listaAdy[i].first; auxNodo != null ; auxNodo = auxNodo.next){
-                auxNodo.feromonas = auxNodo.feromonas * (1-factorEvaporacion);
-            }
-        }
     }
     
     private boolean viaje(){
@@ -160,6 +153,7 @@ public class Hormiga {
                 ciudadesVisitadas[0] = nido;
                 cantidadVisitadas = 1;
                 ubicacion = nido;
+                System.out.println("Se completo un ciclo!");
                 break;
             }
         }

@@ -26,16 +26,8 @@ public class Grafos {
         myGrafo.crearArista(1,4,800);
         myGrafo.crearArista(4,3,700);
         myGrafo.print();
-        myGrafo.inicializarValores(0,3);
-        System.out.println(myGrafo.listaAdy[0].first.feromonas);
-        System.out.println(myGrafo.listaAdy[0].first.next.feromonas);
-        Hormiga myHormiga = new Hormiga(0,3,5,myGrafo);
-        for(int i = 0; i<1000; i++)
-        new Hormiga(0,3,5,myGrafo).buscarComida();
         
-        System.out.println(myGrafo.listaAdy[0].first.feromonas);
-        System.out.println(myGrafo.listaAdy[0].first.next.feromonas);
-
+        myGrafo.iniciarSimulacion(0, 3, 1, 2, 1, 2, (float)0.5);
         
     }
 }

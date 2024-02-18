@@ -13,8 +13,8 @@ public class Grafo {
 //  Grafo no dirigido con lista de adyacencia
     int maxNodos; // Cantidad maxima de ciudades.
     int numVertices; // Número de vértices del grafo.
-    int verticeNido; // Vertice inicial de la simulación o nido
-    int verticeComida; // Vertice objetivo de la simulación o comida
+    public static float factorEvaporacion = (float) 0.5;
+
     ListaVertice listaAdy []; // Array de listas, donde cada lista es un Vertice y sus nodos son Aristas
     
     public Grafo (int n) {
@@ -46,16 +46,34 @@ public class Grafo {
         }
     }
     
-    public void inicializarValores(int nido, int comida){
-//      Se inicializan el valor inicial de feromonas (t) en los caminos (t=1/m Donde m es la cantidad de ciudades)
+    public void evaporarFeromonas() {
+        for (int i = 0; i < numVertices; i++) {
+            for (NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next) {
+                auxNodo.feromonas = auxNodo.feromonas * (1 - factorEvaporacion);
+            }
+        }
+    }
+    
+    public void iniciarSimulacion(int nido, int comida, int cantidadCiclos, int cantidadHormigas,
+            int importanciaFeromona, int visibilidadCiudad, float factEvaporacion){
+//        Se cambia el factor de evaporación.
+          factorEvaporacion = factEvaporacion;
+//        Se inicializan el valor inicial de feromonas (t) en los caminos (t=1/m Donde m es la cantidad de ciudades)
         for(int i = 0; i < numVertices; i++){
             for(NodoArista j = listaAdy[i].first; j != null; j = j.next){
                 j.feromonas = (float) 1 / numVertices;
             }
         }
-//      Se decide una ciudad inicial (nido) y una ciudad final (comida)
-        verticeNido = nido;
-        verticeComida = comida;
+//        Se generan las hormigas.
+        for(int i = 0; i < cantidadCiclos; i++){
+            Hormiga auxHormiga = new Hormiga(nido, comida, numVertices, this, importanciaFeromona, visibilidadCiudad);
+            for(int j = 0; j < cantidadHormigas; j++){
+                auxHormiga.buscarComida();
+            }
+            evaporarFeromonas();
+            System.out.println("Se evaporan fermonas");
+        }
+        
     }
     
     public void print(){
