@@ -6,16 +6,16 @@ package grafos;
 
 /**
  *
- * @author necro
+ * @author Stefano
  */
-public class Nodo {
+public class NodoArista {
     public int id;
     public int distancia;
-    public int feromonas;
-    public Nodo next;
-    public Nodo previous;
+    public float feromonas;
+    public NodoArista next;
+    public NodoArista previous;
     
-    public Nodo (int data, int distance ) {
+    public NodoArista (int data, int distance ) {
         id = data;
         distancia = distance;
         next = null;

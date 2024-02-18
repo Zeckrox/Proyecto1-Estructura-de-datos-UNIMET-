@@ -6,7 +6,7 @@ package grafos;
 
 /**
  *
- * @author necro
+ * @author Stefano
  */
 public class Grafos {
 
@@ -14,7 +14,7 @@ public class Grafos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grafo myGrafo = new Grafo(10);
+        Grafo myGrafo = new Grafo(20);
         myGrafo.crearVertice("Caracas");
         myGrafo.crearVertice("Valencia");
         myGrafo.crearVertice("Barquisimeto");
@@ -25,5 +25,6 @@ public class Grafos {
         myGrafo.crearArista(4,2,23);
         myGrafo.crearArista(2,3,50);
         myGrafo.print();
+        myGrafo.inicializarValores(0,3);
     }
 }

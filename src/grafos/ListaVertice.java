@@ -6,15 +6,17 @@ package grafos;
 
 /**
  *
- * @author necro
+ * @author Stefano
  */
-public class Lista {
+public class ListaVertice {
+    public int id;
     public String nombre;
-    public Nodo first;
-    public Nodo last;
+    public NodoArista first;
+    public NodoArista last;
     public int size;
     
-    public Lista (String name) {
+    public ListaVertice (String name, int identifier) {
+        id = identifier;
         nombre = name;
         first = null;
         last = null;
@@ -22,7 +24,7 @@ public class Lista {
     }
     
     public void push(int newData, int distancia){
-        Nodo newNodo = new Nodo(newData, distancia);
+        NodoArista newNodo = new NodoArista(newData, distancia);
         if(size==0){
             first = newNodo;
             last = newNodo;
@@ -61,7 +63,7 @@ public class Lista {
                 size -= 1;
             }
             else{
-                for(Nodo i = first.next; i!= last; i = i.next){
+                for(NodoArista i = first.next; i!= last; i = i.next){
                     if(i.id == toDelete){
                         i.previous.next = i.next;
                         i.next.previous = i.previous;
@@ -74,7 +76,7 @@ public class Lista {
     }
     
     public boolean contains(int toSearch){
-        for(Nodo i = first; i!= null; i = i.next){
+        for(NodoArista i = first; i!= null; i = i.next){
             if(i.id == toSearch){
                 return true;
             }
@@ -83,7 +85,7 @@ public class Lista {
     }
     
     public void print(){
-        for(Nodo i = first; i != null; i = i.next){
+        for(NodoArista i = first; i != null; i = i.next){
             System.out.print(i.id);
             System.out.print("//");
             System.out.print(String.format("%dm",i.distancia) );

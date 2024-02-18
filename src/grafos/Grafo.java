@@ -10,14 +10,16 @@ package grafos;
  */
 public class Grafo {
 //  Grafo no dirigido con lista de adyacencia
-    int maxNodos; // Tamaño máximo de la tabla.
+    int maxNodos; // Cantidad maxima de ciudades.
     int numVertices; // Número de vértices del grafo.
-    Lista listaAdy []; // Vector de listas de adyacencias del grafo.
+    int verticeNido; // Vertice inicial de la simulación o nido
+    int verticeComida; // Vertice objetivo de la simulación o comida
+    ListaVertice listaAdy []; // Array de listas, donde cada lista es un Vertice y sus nodos son Aristas
     
     public Grafo (int n) {
         maxNodos = n;
         numVertices = 0;
-        listaAdy = new Lista[n];
+        listaAdy = new ListaVertice[n];
     }
     
     public void crearVertice (String name) {
@@ -26,7 +28,7 @@ public class Grafo {
                 System.out.println ("Error, se supera el número de nodos máximo del grafo");
         }
         else{
-            listaAdy[newId]= new Lista(name);
+            listaAdy[newId]= new ListaVertice(name, newId);
             numVertices += 1;
         }
     }
@@ -41,6 +43,18 @@ public class Grafo {
                 listaAdy[j].push(i, distancia);
             }  
         }
+    }
+    
+    public void inicializarValores(int nido, int comida){
+//      Se inicializan el valor inicial de feromonas (t) en los caminos (t=1/m Donde m es la cantidad de ciudades)
+        for(int i = 0; i < numVertices; i++){
+            for(NodoArista j = listaAdy[i].first; j != null; j = j.next){
+                j.feromonas = (float) 1 / numVertices;
+            }
+        }
+//      Se decide una ciudad inicial (nido) y una ciudad final (comida)
+        verticeNido = nido;
+        verticeComida = comida;
     }
     
     public void print(){
