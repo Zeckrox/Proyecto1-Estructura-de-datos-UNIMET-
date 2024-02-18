@@ -26,5 +26,7 @@ public class Grafos {
         myGrafo.crearArista(2,3,50);
         myGrafo.print();
         myGrafo.inicializarValores(0,3);
+        Hormiga myHormiga = new Hormiga(1,3,4,myGrafo);
+        myHormiga.viajar();
     }
 }
