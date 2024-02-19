@@ -11,11 +11,10 @@ package logica;
  */
 public class Grafo {
 //  Grafo no dirigido con lista de adyacencia
-    int maxNodos; // Cantidad maxima de ciudades.
-    int numVertices; // Número de vértices del grafo.
+    public int maxNodos; // Cantidad maxima de ciudades.
+    public int numVertices; // Número de vértices del grafo.
     public static float factorEvaporacion = (float) 0.5;
-
-    ListaVertice listaAdy []; // Array de listas, donde cada lista es un Vertice y sus nodos son Aristas
+    public ListaVertice listaAdy []; // Array de listas, donde cada lista es un Vertice y sus nodos son Aristas
     
     public Grafo (int n) {
         maxNodos = n;
@@ -64,7 +63,7 @@ public class Grafo {
                 j.feromonas = (float) 1 / numVertices;
             }
         }
-//        Se generan las hormigas.
+//        Se generan las hormigas y se realizan los respectivos ciclos.
         for(int i = 0; i < cantidadCiclos; i++){
             Hormiga auxHormiga = new Hormiga(nido, comida, numVertices, this, importanciaFeromona, visibilidadCiudad);
             for(int j = 0; j < cantidadHormigas; j++){
