@@ -5,7 +5,6 @@
 package GUI;
 import javax.swing.DefaultListModel;
 import logica.Grafo;
-import logica.ListaDoble;
 import logica.Nodo;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.Graphs;
@@ -67,40 +66,12 @@ public class VentanaCiclo extends javax.swing.JFrame {
             mod.addElement(String.format("<html>Hormiga(%d): &#8205; %s <br/>Distancia recorrida: %dm<br/> &#8205; </html>",
                     i, myGrafo.recorridosSimulacion[cicloNum-1][i], myGrafo.distanciasSimulacion[cicloNum-1][i]) );
         }
-        ListaDoble posiblesRecorridos = new ListaDoble();
-//        Se analizan todos los posible recorridos
-        for(int i = 0; i< myGrafo.recorridosSimulacion[cicloNum-1].length; i++){
-            if( !posiblesRecorridos.contains(myGrafo.recorridosSimulacion[cicloNum-1][i]) ){
-                posiblesRecorridos.push(myGrafo.recorridosSimulacion[cicloNum-1][i]);
-            }
-        }
-//        Y se buscan las ocurrencias de estos caminos para determinar el mas optimo.
-        int ocurrencias[] = new int[posiblesRecorridos.size];
-        for(int i = 0; i< myGrafo.recorridosSimulacion[cicloNum-1].length; i++){
-            Nodo auxNodo = posiblesRecorridos.first;
-            for(int j = 0 ; j < ocurrencias.length ; j++){
-                if (auxNodo.text.equals(myGrafo.recorridosSimulacion[cicloNum-1][i])){
-                    ocurrencias[j]++;
-                }
-                auxNodo = auxNodo.next;
-            } 
-        }
-//        Se almacena la posicion con mayor ocurrencias
-        int caminoOptimo = -1;
-        for(int index = 0; index < ocurrencias.length; index++){
-            if(caminoOptimo == -1){
-                caminoOptimo = index;
-            }
-            else if(ocurrencias[index] > ocurrencias[caminoOptimo]){
-                    caminoOptimo = index;
-            }
-        }
-//        Y ahora se busca en los posibles caminos el valor del camino optimo.
-        Nodo caminoIdeal = posiblesRecorridos.first;
-        for(int indice = 0; indice != caminoOptimo; indice++){
-            caminoIdeal = caminoIdeal.next;
-        }
+        
+//        Se determina el camino más frecuentado y en teoria el más optimo.
+        Nodo caminoIdeal = myGrafo.recorridoMasFrecuente(myGrafo.recorridosSimulacion[cicloNum-1]);
+//        Agregamos el camino ideal de este ciclo al arreglo de caminos ideales de la simulacion.
         ciclosOptimos[cicloNum-1] = caminoIdeal.text;
+        
 //        Finalmente se personaliza el grafo con cada uno delos vertices del camino más optimo.
         String posicionesIdeales[] = caminoIdeal.text.split("→");
         for(int pI = 0; pI < posicionesIdeales.length-1 ; pI++){

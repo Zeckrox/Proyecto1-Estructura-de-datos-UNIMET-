@@ -118,6 +118,7 @@ public class Hormiga {
                     }
                     
                 }
+                
                 probViajar[j] = numerador/denominador;
             }
             

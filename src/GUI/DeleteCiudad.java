@@ -124,32 +124,12 @@ public class DeleteCiudad extends javax.swing.JFrame {
             myAlerta.setLocationRelativeTo(this);
             myAlerta.setVisible(true);
         }
-        
         else{
             myGrafo.eliminarVertice(cityToDelete);
-    //        Reseteamos todo el grafo de GraphStream.
-            while(true){
-                if(graph.getNodeCount()==0){
-                    break;
-                }
-                graph.removeNode(graph.getNodeCount()-1);
-            }
-    //        Generamos el nuevo grafo.
-            for(int i = 0; i < myGrafo.numVertices; i++){
-                graph.addNode(String.format("(%d)", i) + myGrafo.listaAdy[i].nombre)
-                        .setAttribute("ui.label", String.format("(%d)", i) + myGrafo.listaAdy[i].nombre);
-            }
-            for(int j = 0; j < myGrafo.numVertices; j++){
-                for(NodoArista auxNode = myGrafo.listaAdy[j].first; auxNode != null; auxNode = auxNode.next){
-                    String from = String.format("(%d)", j) + myGrafo.listaAdy[j].nombre;
-                    String to = String.format("(%d)", auxNode.id) + myGrafo.listaAdy[auxNode.id].nombre;                
-                    if(!graph.getNode(from).hasEdgeBetween(to)){
-                        graph.addEdge(from+to, from, to).setAttribute("ui.label", auxNode.distancia);
-                    }
-                }
-            }
-        }    
-        this.dispose();
+            myGrafo.vaciarGraphStream(graph);
+            myGrafo.copiarEnGraphStream(graph);
+        }
+        ;        this.dispose();
     }//GEN-LAST:event_deleteCityActionPerformed
 
 

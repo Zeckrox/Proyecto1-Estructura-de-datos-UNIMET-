@@ -32,19 +32,8 @@ public class Grafos {
         myGrafo.crearArista(3,4,200);
 //        Generamos el grafo para visualizar.
         Graph graph = new SingleGraph("Simulacion");
-        for(int i = 0; i < myGrafo.numVertices; i++){
-            graph.addNode(String.format("(%d)", i) + myGrafo.listaAdy[i].nombre)
-                    .setAttribute("ui.label", String.format("(%d)", i) + myGrafo.listaAdy[i].nombre);
-        }
-        for(int j = 0; j < myGrafo.numVertices; j++){
-            for(NodoArista auxNode = myGrafo.listaAdy[j].first; auxNode != null; auxNode = auxNode.next){
-                String from = String.format("(%d)", j) + myGrafo.listaAdy[j].nombre;
-                String to = String.format("(%d)", auxNode.id) + myGrafo.listaAdy[auxNode.id].nombre;                
-                if(!graph.getNode(from).hasEdgeBetween(to)){
-                    graph.addEdge(from+to, from, to).setAttribute("ui.label", auxNode.distancia);
-                }
-            }
-        }
+        myGrafo.copiarEnGraphStream(graph);
+        
         VentanaInicial myVentana = new VentanaInicial(myGrafo, graph);
         myVentana.setVisible(true);
         myVentana.setLocationRelativeTo(null);

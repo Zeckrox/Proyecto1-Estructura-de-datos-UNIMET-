@@ -5,7 +5,6 @@
 package GUI;
 
 import logica.Grafo;
-import logica.ListaDoble;
 import logica.Nodo;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.Graphs;
@@ -23,7 +22,7 @@ public class FinSimulacion extends javax.swing.JFrame {
     Graph ogGraph;
     Graph graph;
     GraphViewer graphVisualizer = new GraphViewer();
-    private final int visCiudad;
+    
 
     /**
      * Creates new form FinSimulacion
@@ -57,40 +56,10 @@ public class FinSimulacion extends javax.swing.JFrame {
         comida = food;
         graph.setAttribute("ui.stylesheet", "node.nido{fill-color: #badc58; size: 15px;} node.comida { fill-color: #ff6b81; size:15px;}"
                 + " edge.connected { fill-color: #6ab04c; size: 2px; }");
+
+//        Se determina el camino más frecuentado y en teoria el más optimo.
+        Nodo caminoIdeal = myGrafo.recorridoMasFrecuente(ciclosOptimos);
         
-        ListaDoble posiblesRecorridos = new ListaDoble();
-//        Se analizan todos los posible recorridos
-        for(int i = 0; i< ciclosOptimos.length; i++){
-            if( !posiblesRecorridos.contains(ciclosOptimos[i]) ){
-                posiblesRecorridos.push(ciclosOptimos[i]);
-            }
-        }
-//        Y se buscan las ocurrencias de estos caminos para determinar el mas optimo.
-        int ocurrencias[] = new int[posiblesRecorridos.size];
-        for(int i = 0; i< ciclosOptimos.length; i++){
-            Nodo auxNodo = posiblesRecorridos.first;
-            for(int j = 0 ; j < ocurrencias.length ; j++){
-                if (auxNodo.text.equals(ciclosOptimos[i])){
-                    ocurrencias[j]++;
-                }
-                auxNodo = auxNodo.next;
-            } 
-        }
-//        Se almacena la posicion con mayor ocurrencias
-        int caminoOptimo = -1;
-        for(int index = 0; index < ocurrencias.length; index++){
-            if(caminoOptimo == -1){
-                caminoOptimo = index;
-            }
-            else if(ocurrencias[index] > ocurrencias[caminoOptimo]){
-                    caminoOptimo = index;
-            }
-        }
-//        Y ahora se busca en los posibles caminos el valor del camino optimo.
-        Nodo caminoIdeal = posiblesRecorridos.first;
-        for(int indice = 0; indice != caminoOptimo; indice++){
-            caminoIdeal = caminoIdeal.next;
-        }
 //        Finalmente se personaliza el grafo con cada uno delos vertices del camino más optimo.
         String posicionesIdeales[] = caminoIdeal.text.split("→");
         for(int pI = 0; pI < posicionesIdeales.length-1 ; pI++){
@@ -108,9 +77,7 @@ public class FinSimulacion extends javax.swing.JFrame {
 //        Aqui se personaliza el grafo de GraphStream
         graph.getNode(String.format("(%d)", nido) + myGrafo.listaAdy[nido].nombre).setAttribute("ui.class", "nido");
         graph.getNode(String.format("(%d)", comida) + myGrafo.listaAdy[comida].nombre).setAttribute("ui.class", "comida");
-        graphVisualizer.display(graph, this.getWidth()+230, this.getHeight()+100, "Ruta óptima de la simulación");
-        this.visCiudad = visCiudad;
-        
+        graphVisualizer.display(graph, this.getWidth()+230, this.getHeight()+100, "Ruta óptima de la simulación");        
     }
 
     /**

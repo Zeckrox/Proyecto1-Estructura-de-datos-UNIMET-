@@ -397,6 +397,7 @@ public class VentanaInicial extends javax.swing.JFrame {
             evaporacion.setText("1.0");
         }
         factorEva = Float.valueOf(evaporacion.getText());
+        System.out.print(Float.valueOf("1"));
     }//GEN-LAST:event_evaporacionFocusLost
 
     private void deleteCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCityBtnActionPerformed

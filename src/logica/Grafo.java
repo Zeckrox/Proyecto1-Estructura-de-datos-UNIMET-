@@ -4,6 +4,8 @@
  */
 package logica;
 
+import org.graphstream.graph.Graph;
+
 /**
  *
  * @author Stefano Boschetti
@@ -74,10 +76,20 @@ public class Grafo {
         }
     }
     
+    public void almacenarPrevFeromonas(){
+        for (int i = 0; i < numVertices; i++) {
+            for (NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next) {
+                auxNodo.prevFeromonas = auxNodo.feromonas;
+            }
+        }
+    }
+    
     public void evaporarFeromonas() {
         for (int i = 0; i < numVertices; i++) {
             for (NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next) {
-                auxNodo.feromonas = auxNodo.feromonas * (1 - factorEvaporacion);
+                float evaporacionPrev = auxNodo.prevFeromonas * (1 - factorEvaporacion);
+                float nuevasFeromonas = auxNodo.feromonas - auxNodo.prevFeromonas; 
+                auxNodo.feromonas = evaporacionPrev + nuevasFeromonas;
             }
         }
     }
@@ -96,6 +108,7 @@ public class Grafo {
         distanciasSimulacion = new int[cantidadCiclos][cantidadHormigas];
         recorridosSimulacion = new String[cantidadCiclos][cantidadHormigas];
         for(int i = 0; i < cantidadCiclos; i++){
+            almacenarPrevFeromonas();
             Hormiga auxHormiga = new Hormiga(nido, comida, numVertices, this, importanciaFeromona, visibilidadCiudad);
             for(int j = 0; j < cantidadHormigas; j++){
                 String[] auxArr = auxHormiga.buscarComida();
@@ -105,6 +118,67 @@ public class Grafo {
             evaporarFeromonas();
         }
         
+    }
+    
+    public void copiarEnGraphStream(Graph graph){
+        for (int i = 0; i < numVertices; i++) {
+            graph.addNode(String.format("(%d)", i) + listaAdy[i].nombre)
+                    .setAttribute("ui.label", String.format("(%d)", i) + listaAdy[i].nombre);
+        }
+        for (int j = 0; j < numVertices; j++) {
+            for (NodoArista auxNode = listaAdy[j].first; auxNode != null; auxNode = auxNode.next) {
+                String from = String.format("(%d)", j) + listaAdy[j].nombre;
+                String to = String.format("(%d)", auxNode.id) + listaAdy[auxNode.id].nombre;
+                if (!graph.getNode(from).hasEdgeBetween(to)) {
+                    graph.addEdge(from + to, from, to).setAttribute("ui.label", auxNode.distancia);
+                }
+            }
+        }
+    }
+    
+    public void vaciarGraphStream(Graph graph){
+        while (true) {
+            if (graph.getNodeCount() == 0) {
+                break;
+            }
+            graph.removeNode(graph.getNodeCount() - 1);
+        }
+    }
+    
+    public Nodo recorridoMasFrecuente(String[] recorridos){
+        ListaDoble posiblesRecorridos = new ListaDoble();
+//        Se analizan todos los posible recorridos
+        for (int i = 0; i < recorridos.length; i++) {
+            if (!posiblesRecorridos.contains(recorridos[i])) {
+                posiblesRecorridos.push(recorridos[i]);
+            }
+        }
+//        Y se buscan las ocurrencias de estos caminos para determinar el mas optimo.
+        int ocurrencias[] = new int[posiblesRecorridos.size];
+        for (int i = 0; i < recorridos.length; i++) {
+            Nodo auxNodo = posiblesRecorridos.first;
+            for (int j = 0; j < ocurrencias.length; j++) {
+                if (auxNodo.text.equals(recorridos[i])) {
+                    ocurrencias[j]++;
+                }
+                auxNodo = auxNodo.next;
+            }
+        }
+//        Se almacena la posicion con mayor ocurrencias
+        int caminoOptimo = -1;
+        for (int index = 0; index < ocurrencias.length; index++) {
+            if (caminoOptimo == -1) {
+                caminoOptimo = index;
+            } else if (ocurrencias[index] > ocurrencias[caminoOptimo]) {
+                caminoOptimo = index;
+            }
+        }
+//        Y ahora se busca en los posibles caminos el valor del camino optimo.
+        Nodo caminoIdeal = posiblesRecorridos.first;
+        for (int indice = 0; indice != caminoOptimo; indice++) {
+            caminoIdeal = caminoIdeal.next;
+        }
+        return caminoIdeal;
     }
     
     public void print(){
