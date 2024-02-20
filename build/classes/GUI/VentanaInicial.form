@@ -72,7 +72,6 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel13" min="-2" pref="128" max="-2" attributes="0"/>
                                       <Component id="importGraph" min="-2" pref="128" max="-2" attributes="0"/>
-                                      <Component id="saveGraph" alignment="1" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -169,7 +168,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="beta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="saveGraph" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -178,7 +176,7 @@
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel12" min="-2" pref="15" max="-2" attributes="0"/>
-                  <EmptySpace pref="107" max="32767" attributes="0"/>
+                  <EmptySpace pref="108" max="32767" attributes="0"/>
                   <Component id="startSimulation" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -365,7 +363,7 @@
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Importar/Exportar"/>
+            <Property name="text" type="java.lang.String" value="Importar Grafo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="importGraph">
@@ -374,14 +372,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importGraphActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="saveGraph">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Guardar Grafo"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveGraphActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

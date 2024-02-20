@@ -120,6 +120,15 @@ public class Grafo {
         
     }
     
+    public void vaciarGrafo(){
+        while(true){
+            if(numVertices == 0){
+                break;
+            }
+            eliminarVertice(numVertices-1);
+        }
+    }
+    
     public void copiarEnGraphStream(Graph graph){
         for (int i = 0; i < numVertices; i++) {
             graph.addNode(String.format("(%d)", i) + listaAdy[i].nombre)

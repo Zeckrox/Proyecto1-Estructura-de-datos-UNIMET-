@@ -72,7 +72,6 @@ public class VentanaInicial extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         importGraph = new javax.swing.JButton();
-        saveGraph = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,19 +187,12 @@ public class VentanaInicial extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Importar/Exportar");
+        jLabel13.setText("Importar Grafo");
 
         importGraph.setText("Cargar Grafo");
         importGraph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 importGraphActionPerformed(evt);
-            }
-        });
-
-        saveGraph.setText("Guardar Grafo");
-        saveGraph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveGraphActionPerformed(evt);
             }
         });
 
@@ -236,8 +228,7 @@ public class VentanaInicial extends javax.swing.JFrame {
                                 .addGap(15, 15, 15)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(importGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(saveGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(importGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(166, 166, 166)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -310,15 +301,14 @@ public class VentanaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(saveGraph))
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(evaporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(startSimulation)
                 .addContainerGap())
         );
@@ -438,17 +428,36 @@ public class VentanaInicial extends javax.swing.JFrame {
 
     private void importGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importGraphActionPerformed
         // TODO add your handling code here:
+        
         ClaseFrame importWindow = new ClaseFrame();
         importWindow.setAlwaysOnTop(true);
-        importWindow.abrirArchivo();
+        String textFile = importWindow.abrirArchivo().replace("ciudad\n", "");
+        if(textFile.length() > 0){
+            myGrafo.vaciarGrafo();
+            myGrafo.vaciarGraphStream(graph);
+            String[] ciudades = textFile.split("aristas\n")[0].split("\n");
+            String[] aristas = textFile.split("aristas\n")[1].split("\n");
+            Boolean contieneCero = false;
+            for(int i = 0; i < ciudades.length; i++){
+                if(ciudades[i].equals("0")){contieneCero = true;}
+                myGrafo.crearVertice("");
+            }
+            if(contieneCero){
+                for (int j = 0; j < aristas.length; j++) {
+                    String[] tempInfo = aristas[j].split(",");
+                    myGrafo.crearArista(Integer.parseInt(tempInfo[0]),Integer.parseInt(tempInfo[1]), Float.parseFloat(tempInfo[2]));
+                }
+            }    
+            else{
+                for(int j = 0; j < aristas.length; j++){
+                    String[] tempInfo = aristas[j].split(",");
+                    myGrafo.crearArista(Integer.parseInt(tempInfo[0])-1,Integer.parseInt(tempInfo[1])-1, Float.parseFloat(tempInfo[2]) );
+                }       
+            }
+            
+            myGrafo.copiarEnGraphStream(graph);
+        }
     }//GEN-LAST:event_importGraphActionPerformed
-
-    private void saveGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGraphActionPerformed
-        // TODO add your handling code here:
-        ClaseFrame importWindow = new ClaseFrame();
-        importWindow.setAlwaysOnTop(true);
-        importWindow.guardarArchivo();
-    }//GEN-LAST:event_saveGraphActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -477,7 +486,6 @@ public class VentanaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner nidoSpinner;
-    private javax.swing.JButton saveGraph;
     private javax.swing.JButton startSimulation;
     // End of variables declaration//GEN-END:variables
 }

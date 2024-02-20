@@ -99,6 +99,8 @@ public class FinSimulacion extends javax.swing.JFrame {
         feromona = new javax.swing.JLabel();
         ciudad = new javax.swing.JLabel();
         backStart = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        hormigasLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +129,12 @@ public class FinSimulacion extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Leyenda.png"))); // NOI18N
+
+        hormigasLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        hormigasLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hormigasLabel1.setText("LEYENDA");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,7 +154,10 @@ public class FinSimulacion extends javax.swing.JFrame {
                             .addComponent(ciudad)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
-                                .addComponent(backStart)))
+                                .addComponent(backStart))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(hormigasLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -169,7 +180,11 @@ public class FinSimulacion extends javax.swing.JFrame {
                 .addComponent(feromona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ciudad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(hormigasLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addComponent(backStart)
                 .addContainerGap())
         );
@@ -207,7 +222,9 @@ public class FinSimulacion extends javax.swing.JFrame {
     private javax.swing.JLabel evaporacion;
     private javax.swing.JLabel feromona;
     private javax.swing.JLabel hormigas;
+    private javax.swing.JLabel hormigasLabel1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nidos;
     // End of variables declaration//GEN-END:variables

@@ -38,6 +38,5 @@ public class Grafos {
         VentanaInicial myVentana = new VentanaInicial(myGrafo, graph);
         myVentana.setVisible(true);
         myVentana.setLocationRelativeTo(null);
-        
     }
 }

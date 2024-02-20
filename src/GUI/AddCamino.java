@@ -220,7 +220,7 @@ public class AddCamino extends javax.swing.JFrame {
     private void distanceBetweenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_distanceBetweenFocusLost
         distanceBetween.setText(distanceBetween.getText().replaceAll("[^\\d.]+|\\.(?!\\d)", ""));
         if(distanceBetween.getText().length() == 0){
-            distanceBetween.setText("0.5");
+            distanceBetween.setText("1.5");
         }
         if(Float.valueOf(distanceBetween.getText()) <= (float) 0){
             distanceBetween.setText("0.01");
