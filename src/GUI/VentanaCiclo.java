@@ -63,8 +63,8 @@ public class VentanaCiclo extends javax.swing.JFrame {
         DefaultListModel mod = new DefaultListModel();
         antInfo.setModel(mod);
         for(int i = 0; i< myGrafo.distanciasSimulacion[cicloNum-1].length; i++){
-            mod.addElement(String.format("<html>Hormiga(%d): &#8205; %s <br/>Distancia recorrida: %dm<br/> &#8205; </html>",
-                    i, myGrafo.recorridosSimulacion[cicloNum-1][i], myGrafo.distanciasSimulacion[cicloNum-1][i]) );
+            mod.addElement(String.format("<html>Hormiga(%d): &#8205; %s <br/>Distancia recorrida: %sm<br/> &#8205; </html>",
+                    i+1, myGrafo.recorridosSimulacion[cicloNum-1][i], myGrafo.distanciasSimulacion[cicloNum-1][i]) );
         }
         
 //        Se determina el camino más frecuentado y en teoria el más optimo.

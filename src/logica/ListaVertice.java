@@ -24,7 +24,7 @@ public class ListaVertice {
         size = 0;
     }
     
-    public void push(int newData, int distancia){
+    public void push(int newData, float distancia){
         NodoArista newNodo = new NodoArista(newData, distancia);
         if(size==0){
             first = newNodo;
@@ -89,7 +89,7 @@ public class ListaVertice {
         for(NodoArista i = first; i != null; i = i.next){
             System.out.print(i.id);
             System.out.print("//");
-            System.out.print(String.format("%dm",i.distancia) );
+            System.out.print(String.format("%fm",i.distancia) );
             System.out.print(", ");
         }
         System.out.println("");

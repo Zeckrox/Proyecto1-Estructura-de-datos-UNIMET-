@@ -6,7 +6,6 @@ package GUI;
 
 import javax.swing.DefaultListModel;
 import logica.Grafo;
-import logica.NodoArista;
 import org.graphstream.graph.Graph;
 
 /**
@@ -18,6 +17,7 @@ public class AddCamino extends javax.swing.JFrame {
     Grafo myGrafo;
     String ciudadDesde;
     String ciudadHasta;
+    Float distance;
 
     /**
      * Creates new form AddCamino
@@ -27,6 +27,7 @@ public class AddCamino extends javax.swing.JFrame {
     public AddCamino(Graph graph, Grafo myGraph) {
         graphStream = graph;
         myGrafo = myGraph;
+        distance = (float) 1.5;
         initComponents();
         this.setAlwaysOnTop(true);
         DefaultListModel mod = new DefaultListModel();
@@ -55,10 +56,10 @@ public class AddCamino extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        distance = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        distanceBetween = new javax.swing.JTextField();
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("AGREGAR CIUDAD");
@@ -96,13 +97,6 @@ public class AddCamino extends javax.swing.JFrame {
 
         jLabel3.setText("Distancia entre las ciudades:");
 
-        distance.setValue(50);
-        distance.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                distanceStateChanged(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel4.setForeground(java.awt.Color.gray);
         jLabel4.setText("*Solo se muestran las ciudades");
@@ -114,6 +108,14 @@ public class AddCamino extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("AGREGAR CAMINO");
+
+        distanceBetween.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        distanceBetween.setText("1.5");
+        distanceBetween.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                distanceBetweenFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,12 +129,12 @@ public class AddCamino extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(distance, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addComponent(distanceBetween))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -162,8 +164,8 @@ public class AddCamino extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(distance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(distanceBetween, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(addPath)
                 .addContainerGap())
@@ -190,9 +192,9 @@ public class AddCamino extends javax.swing.JFrame {
         else{
             int desdeID = Integer.parseInt(ciudadDesde.replaceAll("[^0-9]", ""));
             int hastaID = Integer.parseInt(ciudadHasta.replaceAll("[^0-9]", ""));
-            myGrafo.crearArista(desdeID, hastaID, (int) distance.getValue());
+            myGrafo.crearArista(desdeID, hastaID, (float) distance);
             graphStream.addEdge(ciudadDesde+ciudadHasta, ciudadDesde, ciudadHasta)
-                    .setAttribute("ui.label", (int)distance.getValue() );
+                    .setAttribute("ui.label", (float)distance);
             this.setVisible(false);
         }
     }//GEN-LAST:event_addPathActionPerformed
@@ -215,16 +217,21 @@ public class AddCamino extends javax.swing.JFrame {
         ciudadHasta = hasta.getSelectedValue();
     }//GEN-LAST:event_hastaValueChanged
 
-    private void distanceStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_distanceStateChanged
-        if((int) distance.getValue() < 1){
-            distance.setValue(1);
+    private void distanceBetweenFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_distanceBetweenFocusLost
+        distanceBetween.setText(distanceBetween.getText().replaceAll("[^\\d.]+|\\.(?!\\d)", ""));
+        if(distanceBetween.getText().length() == 0){
+            distanceBetween.setText("0.5");
         }
-    }//GEN-LAST:event_distanceStateChanged
+        if(Float.valueOf(distanceBetween.getText()) <= (float) 0){
+            distanceBetween.setText("0.01");
+        }
+        distance = Float.valueOf(distanceBetween.getText());
+    }//GEN-LAST:event_distanceBetweenFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPath;
     private javax.swing.JList<String> desde;
-    private javax.swing.JSpinner distance;
+    private javax.swing.JTextField distanceBetween;
     private javax.swing.JList<String> hasta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

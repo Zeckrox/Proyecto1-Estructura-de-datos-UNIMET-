@@ -17,7 +17,7 @@ public class Grafo {
     public int numVertices; // Número de vértices del grafo.
     public static float factorEvaporacion = (float) 0.5;
     public ListaVertice listaAdy []; // Array de listas, donde cada lista es un Vertice y sus nodos son Aristas
-    public int distanciasSimulacion[][];
+    public float distanciasSimulacion[][];
     public String recorridosSimulacion[][];
     
     public Grafo (int n) {
@@ -55,7 +55,7 @@ public class Grafo {
        }
     }
     
-    public void crearArista (int i, int j, int distancia) {
+    public void crearArista (int i, int j, float distancia) {
         if (i >= numVertices){
             System.out.println ("Error, no existe el vértice en el grafo");
         }
@@ -105,7 +105,7 @@ public class Grafo {
             }
         }
 //        Se generan las hormigas y se realizan los respectivos ciclos.
-        distanciasSimulacion = new int[cantidadCiclos][cantidadHormigas];
+        distanciasSimulacion = new float[cantidadCiclos][cantidadHormigas];
         recorridosSimulacion = new String[cantidadCiclos][cantidadHormigas];
         for(int i = 0; i < cantidadCiclos; i++){
             almacenarPrevFeromonas();
@@ -113,7 +113,7 @@ public class Grafo {
             for(int j = 0; j < cantidadHormigas; j++){
                 String[] auxArr = auxHormiga.buscarComida();
                 recorridosSimulacion[i][j] = auxArr[0];
-                distanciasSimulacion[i][j] = Integer.parseInt(auxArr[1]);
+                distanciasSimulacion[i][j] = Float.parseFloat(auxArr[1]);
             }
             evaporarFeromonas();
         }

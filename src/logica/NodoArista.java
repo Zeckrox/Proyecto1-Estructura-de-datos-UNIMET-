@@ -11,13 +11,13 @@ package logica;
  */
 public class NodoArista {
     public int id;
-    public int distancia;
+    public float distancia;
     public float prevFeromonas;
     public float feromonas;
     public NodoArista next;
     public NodoArista previous;
     
-    public NodoArista (int data, int distance ) {
+    public NodoArista (int data, float distance ) {
         id = data;
         distancia = distance;
         next = null;

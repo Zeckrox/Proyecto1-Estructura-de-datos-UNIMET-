@@ -22,7 +22,7 @@ public class Hormiga {
     public static Grafo grafo;
     public static int ubicacion;
     public static String recorrido = "";
-    public static int distanciaRecorrida = 0;
+    public static float distanciaRecorrida = 0;
     
     public Hormiga(int nest, int food, int cities, Grafo grafoPadre, int importanciaFeromona, int visibilidadCiudad){
         nido = nest;
@@ -158,7 +158,7 @@ public class Hormiga {
             if (viaje()==true){
                 String auxArr[] = new String[2];
                 auxArr[0] = recorrido.substring(0, recorrido.length()-1);
-                auxArr[1] = Integer.toString(distanciaRecorrida);
+                auxArr[1] = Float.toString(distanciaRecorrida);
                 ciudadesVisitadas = new int[cantidadCiudades];
                 ciudadesVisitadas[0] = nido;
                 cantidadVisitadas = 1;
