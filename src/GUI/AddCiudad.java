@@ -21,6 +21,7 @@ public class AddCiudad extends javax.swing.JFrame {
         graphStream = graph;
         myGrafo = myGraph;
         initComponents();
+        this.setAlwaysOnTop(true);
     }
 
     /**
@@ -37,6 +38,7 @@ public class AddCiudad extends javax.swing.JFrame {
         crearCiudad = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,30 +56,39 @@ public class AddCiudad extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("AGREGAR CIUDAD");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel2.setForeground(java.awt.Color.gray);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Inserte el nombre de la ciudad");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.gray);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("*El nombre no puede contener numeros*");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(nombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(crearCiudad)
                 .addGap(103, 103, 103))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(nombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,7 +99,9 @@ public class AddCiudad extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nombreNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(crearCiudad)
                 .addGap(14, 14, 14))
         );
@@ -110,23 +123,72 @@ public class AddCiudad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreNuevoActionPerformed
-        graphStream.addNode(String.format("(%d)",myGrafo.numVertices)+nombreNuevo.getText())
+        Boolean ok = true;
+        if(myGrafo.numVertices == myGrafo.maxNodos){
+            Alerta myAlerta = new Alerta("Se ha alcanzado el maximo de ciudades (20)");
+            myAlerta.setLocationRelativeTo(this);
+            myAlerta.setVisible(true);
+        }
+        else if(nombreNuevo.getText().replaceAll("[\\D]", "").length() >0 ){
+            Alerta myAlerta = new Alerta("El nombre no puede contener numeros");
+            myAlerta.setLocationRelativeTo(this);
+            myAlerta.setVisible(true);
+        }
+        else{
+            for(int i = 0 ; i < myGrafo.numVertices; i++){
+                if ( myGrafo.listaAdy[i].nombre.equals(nombreNuevo.getText()) ){
+                    Alerta myAlerta = new Alerta("Esta ciudad ya existe");
+                    myAlerta.setLocationRelativeTo(this);
+                    myAlerta.setVisible(true);
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok){
+               graphStream.addNode(String.format("(%d)",myGrafo.numVertices)+nombreNuevo.getText())
                 .setAttribute("ui.label", String.format("(%d)",myGrafo.numVertices)+nombreNuevo.getText());
-        myGrafo.crearVertice(nombreNuevo.getText());
-        this.setVisible(false);
+            myGrafo.crearVertice(nombreNuevo.getText());
+            this.setVisible(false);  
+            }
+        }
     }//GEN-LAST:event_nombreNuevoActionPerformed
 
     private void crearCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearCiudadActionPerformed
-        graphStream.addNode(String.format("(%d)",myGrafo.numVertices)+nombreNuevo.getText())
+        Boolean ok = true;
+        if(myGrafo.numVertices == myGrafo.maxNodos){
+            Alerta myAlerta = new Alerta("Se ha alcanzado el maximo de ciudades (20)");
+            myAlerta.setLocationRelativeTo(this);
+            myAlerta.setVisible(true);
+        }
+        else if(nombreNuevo.getText().replaceAll("[\\D]", "").length() >0 ){
+            Alerta myAlerta = new Alerta("El nombre no puede contener numeros");
+            myAlerta.setLocationRelativeTo(this);
+            myAlerta.setVisible(true);
+        }
+        else{
+            for(int i = 0 ; i < myGrafo.numVertices; i++){
+                if ( myGrafo.listaAdy[i].nombre.equals(nombreNuevo.getText()) ){
+                    Alerta myAlerta = new Alerta("Esta ciudad ya existe");
+                    myAlerta.setLocationRelativeTo(this);
+                    myAlerta.setVisible(true);
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok){
+               graphStream.addNode(String.format("(%d)",myGrafo.numVertices)+nombreNuevo.getText())
                 .setAttribute("ui.label", String.format("(%d)",myGrafo.numVertices)+nombreNuevo.getText());
-        myGrafo.crearVertice(nombreNuevo.getText());
-        this.setVisible(false);
+            myGrafo.crearVertice(nombreNuevo.getText());
+            this.setVisible(false);  
+            }
+        }
     }//GEN-LAST:event_crearCiudadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton crearCiudad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nombreNuevo;
     // End of variables declaration//GEN-END:variables

@@ -21,6 +21,8 @@ public class Hormiga {
     public static int cantidadVisitadas;
     public static Grafo grafo;
     public static int ubicacion;
+    public static String recorrido = "";
+    public static int distanciaRecorrida = 0;
     
     public Hormiga(int nest, int food, int cities, Grafo grafoPadre, int importanciaFeromona, int visibilidadCiudad){
         nido = nest;
@@ -33,6 +35,7 @@ public class Hormiga {
         grafo = grafoPadre;
         gradoImportanciaFeromona = importanciaFeromona;
         gradoVisibilidadCiudad = visibilidadCiudad;
+        recorrido = Integer.toString(nest)+ "→";
     }
     
     private boolean seVisito(int idCiudad){
@@ -65,7 +68,6 @@ public class Hormiga {
         NodoArista proxCiudades[] = new NodoArista[ciudadesValidas(grafo.listaAdy[ubicacion])];
 //        Probabilidad de viajar a las ciudades disponibles.
         float probViajar[] = new float[proxCiudades.length];
-//        TODO
         float numProb[] = new float[proxCiudades.length];
 //        proxCiudades[i] es el Nodo/Arista/Ciudad y probViajar[i] equivale a su probabilidad de viajar.
 
@@ -93,6 +95,8 @@ public class Hormiga {
         if ( proxCiudades.length == 1 ){
             actualizarFeromonas(proxCiudades[0]);
             ubicacion = proxCiudades[0].id;
+            recorrido += Integer.toString(proxCiudades[0].id)+ "→";
+            distanciaRecorrida += proxCiudades[0].distancia;
             ciudadesVisitadas[cantidadVisitadas] = ubicacion;
             cantidadVisitadas += 1;
         }
@@ -138,6 +142,8 @@ public class Hormiga {
 //            Se modifica la posicion de la hormiga y se actualizan las ciudades visitadas y feromonas.
             actualizarFeromonas(proxCiudades[caminoSeleccionado]);
             ubicacion = proxCiudades[caminoSeleccionado].id;
+            recorrido += Integer.toString(proxCiudades[caminoSeleccionado].id)+ "→";
+            distanciaRecorrida += proxCiudades[caminoSeleccionado].distancia;
             ciudadesVisitadas[cantidadVisitadas] = ubicacion;
             cantidadVisitadas += 1;
         }
@@ -146,15 +152,19 @@ public class Hormiga {
         return ubicacion == comida;
     }
 
-    public void buscarComida(){
+    public String[] buscarComida(){
         while(true){
             if (viaje()==true){
+                String auxArr[] = new String[2];
+                auxArr[0] = recorrido.substring(0, recorrido.length()-1);
+                auxArr[1] = Integer.toString(distanciaRecorrida);
                 ciudadesVisitadas = new int[cantidadCiudades];
                 ciudadesVisitadas[0] = nido;
                 cantidadVisitadas = 1;
                 ubicacion = nido;
-                System.out.println("Se completo un ciclo!");
-                break;
+                recorrido = Integer.toString(nido)+ "→";
+                distanciaRecorrida = 0;
+                return auxArr;
             }
         }
     }

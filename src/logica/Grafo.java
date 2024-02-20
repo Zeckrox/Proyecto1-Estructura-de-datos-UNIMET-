@@ -15,6 +15,8 @@ public class Grafo {
     public int numVertices; // Número de vértices del grafo.
     public static float factorEvaporacion = (float) 0.5;
     public ListaVertice listaAdy []; // Array de listas, donde cada lista es un Vertice y sus nodos son Aristas
+    public int distanciasSimulacion[][];
+    public String recorridosSimulacion[][];
     
     public Grafo (int n) {
         maxNodos = n;
@@ -33,6 +35,24 @@ public class Grafo {
         }
     }
     
+    public void eliminarVertice (int id){
+       for(NodoArista auxNodo = listaAdy[id].first; auxNodo != null; auxNodo = auxNodo.next){
+           eliminarArista(id,auxNodo.id);
+       }
+       for(int i = id; i < numVertices; i++){
+           listaAdy[i] = listaAdy[i+1];
+       }
+       numVertices--;
+       
+       for(int j = 0; j < numVertices; j++){
+           for(NodoArista tempNode = listaAdy[j].first; tempNode != null; tempNode = tempNode.next){
+               if(tempNode.id > id){
+                   tempNode.id--;
+               }
+           }
+       }
+    }
+    
     public void crearArista (int i, int j, int distancia) {
         if (i >= numVertices){
             System.out.println ("Error, no existe el vértice en el grafo");
@@ -42,6 +62,15 @@ public class Grafo {
                 listaAdy[i].push(j, distancia);
                 listaAdy[j].push(i, distancia);
             }  
+        }
+    }
+    
+    public void eliminarArista(int i, int j) {
+        if (j >= numVertices) {
+            System.out.println("Error, no existe el vértice en el grafo");
+        } else {
+            listaAdy[i].delete(j);
+            listaAdy[j].delete(i);
         }
     }
     
@@ -64,13 +93,16 @@ public class Grafo {
             }
         }
 //        Se generan las hormigas y se realizan los respectivos ciclos.
+        distanciasSimulacion = new int[cantidadCiclos][cantidadHormigas];
+        recorridosSimulacion = new String[cantidadCiclos][cantidadHormigas];
         for(int i = 0; i < cantidadCiclos; i++){
             Hormiga auxHormiga = new Hormiga(nido, comida, numVertices, this, importanciaFeromona, visibilidadCiudad);
             for(int j = 0; j < cantidadHormigas; j++){
-                auxHormiga.buscarComida();
+                String[] auxArr = auxHormiga.buscarComida();
+                recorridosSimulacion[i][j] = auxArr[0];
+                distanciasSimulacion[i][j] = Integer.parseInt(auxArr[1]);
             }
             evaporarFeromonas();
-            System.out.println("Se evaporan fermonas");
         }
         
     }

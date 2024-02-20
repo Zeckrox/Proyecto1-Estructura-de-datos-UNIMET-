@@ -5,7 +5,7 @@
             <url>src/logica/Grafos.java</url>
             <bookmark id="1">
                 <name/>
-                <line>40</line>
+                <line>52</line>
                 <key/>
             </bookmark>
         </file>
@@ -14,7 +14,8 @@
         <group>
             <file>file:/C:/Users/necro/OneDrive/Documents/NetBeansProjects/Grafos/src/GUI/VentanaInicial.java</file>
             <file>file:/C:/Users/necro/OneDrive/Documents/NetBeansProjects/Grafos/src/logica/Grafos.java</file>
-            <file>file:/C:/Users/necro/OneDrive/Documents/NetBeansProjects/Grafos/src/GUI/GraphSwing.java</file>
+            <file>file:/C:/Users/necro/OneDrive/Documents/NetBeansProjects/Grafos/src/GUI/DeleteCiudad.java</file>
+            <file>file:/C:/Users/necro/OneDrive/Documents/NetBeansProjects/Grafos/src/GUI/FinSimulacion.java</file>
         </group>
     </open-files>
 </project-private>
