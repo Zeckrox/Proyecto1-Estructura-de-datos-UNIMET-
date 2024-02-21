@@ -113,6 +113,21 @@ public class ListaVertice {
         }
         return false;
     }//Cierre del método
+
+/**
+ * Método que busca un NodoArista por su identificador.
+ *
+ * @param toSearch Número identificador del NodoArista a buscar.
+ * @return Devuelve el NodoArista si lo encuentra y devuelve null si no lo encuentra.
+ */
+    public NodoArista get(int toSearch) {
+        for (NodoArista i = first; i != null; i = i.next) {
+            if (i.id == toSearch) {
+                return i;
+            }
+        }
+        return null;
+    }//Cierre del método
     
     
 /**

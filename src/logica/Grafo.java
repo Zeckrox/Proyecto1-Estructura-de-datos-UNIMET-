@@ -77,6 +77,25 @@ public class Grafo {
    
     
 /**
+ * Método que busca el indice de la listaAdy que contiene a un NodoArista.
+ *
+ * @param toSearch NodoArista a buscar.
+ * @return Devuelve el indice+1 de la listaAdy que contiene al NodoArista 
+ * si se este encuentra, si no se encuentra devuelve 0.
+ */
+    public int getListIdPlusOne(NodoArista toSearch) {
+        for (int i = 0; i < numVertices; i++) {
+            for(NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next ){
+                if(auxNodo == toSearch){
+                    return i+1;
+                }
+            }
+        }
+        return 0;
+    }//Cierre del método
+    
+    
+/**
  * Método que crea una Arista entre dos Vertices dados.
  *
  * @param i Identificador del primer Vertice.
@@ -113,26 +132,13 @@ public class Grafo {
     
     
 /**
- * Método que almacena el valor de las feromonas en prevFeromonas.
- */
-    public void almacenarPrevFeromonas(){
-        for (int i = 0; i < numVertices; i++) {
-            for (NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next) {
-                auxNodo.prevFeromonas = auxNodo.feromonas;
-            }
-        }
-    }//Cierre del método
-    
-    
-/**
  * Método que actualiza el valor de feromonas en todos los Vertices.
  */
     public void evaporarFeromonas() {
         for (int i = 0; i < numVertices; i++) {
             for (NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next) {
-                float evaporacionPrev = auxNodo.prevFeromonas * (1 - factorEvaporacion);
-                float nuevasFeromonas = auxNodo.feromonas - auxNodo.prevFeromonas;
-                auxNodo.feromonas = evaporacionPrev + nuevasFeromonas;
+                float evaporacionPrev = auxNodo.feromonas * (1 - factorEvaporacion);
+                auxNodo.feromonas = evaporacionPrev + auxNodo.extraFeromonas;
             }
         }
     }//Cierre del método
@@ -151,7 +157,7 @@ public class Grafo {
  * @param factEvaporacion Valor del factor de evaporacion de las feromonas (ρ).
  */
     public void iniciarSimulacion(int nido, int comida, int cantidadCiclos, int cantidadHormigas,
-            int importanciaFeromona, int visibilidadCiudad, float factEvaporacion){
+            float importanciaFeromona, float visibilidadCiudad, float factEvaporacion){
 //        Se cambia el factor de evaporación.
           factorEvaporacion = factEvaporacion;
 //        Se inicializan el valor inicial de feromonas (t) en los caminos (t=1/m Donde m es la cantidad de ciudades)
@@ -164,7 +170,6 @@ public class Grafo {
         distanciasSimulacion = new float[cantidadCiclos][cantidadHormigas];
         recorridosSimulacion = new String[cantidadCiclos][cantidadHormigas];
         for(int i = 0; i < cantidadCiclos; i++){
-            almacenarPrevFeromonas();
             Hormiga auxHormiga = new Hormiga(nido, comida, numVertices, this, importanciaFeromona, visibilidadCiudad);
             for(int j = 0; j < cantidadHormigas; j++){
                 String[] auxArr = auxHormiga.buscarComida();

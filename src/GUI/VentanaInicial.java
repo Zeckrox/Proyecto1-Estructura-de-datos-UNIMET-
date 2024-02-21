@@ -15,9 +15,9 @@ public class VentanaInicial extends javax.swing.JFrame {
     int comida = 3; 
     int ciclos = 1;
     int hormigas = 5;
-    int importanciaFeromona = 1;
-    int visibilidadCiudad = 2;
-    float factorEva = (float)0.5;
+    float importanciaFeromona = (float) 1;
+    float visibilidadCiudad = (float) 2;
+    float factorEva = (float) 0.5;
     GraphViewer graphVisualizer = new GraphViewer();
     
     /**
@@ -30,7 +30,7 @@ public class VentanaInicial extends javax.swing.JFrame {
         this.setAlwaysOnTop(true);
         myGrafo = myG;
         graph = gStream;
-        graphVisualizer.display(graph, this.getWidth(), this.getHeight(), "Grafo de la simulacion");
+        graphVisualizer.display(graph, "Grafo de la simulacion");
         comidaSpinner.setValue(3);
     }
 
@@ -61,14 +61,14 @@ public class VentanaInicial extends javax.swing.JFrame {
         startSimulation = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        alpha = new javax.swing.JSpinner();
         jLabel10 = new javax.swing.JLabel();
-        beta = new javax.swing.JSpinner();
         jLabel11 = new javax.swing.JLabel();
         evaporacion = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         importGraph = new javax.swing.JButton();
+        beta = new javax.swing.JTextField();
+        alpha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -152,21 +152,7 @@ public class VentanaInicial extends javax.swing.JFrame {
 
         jLabel9.setText("Factor de evaporación (ρ)");
 
-        alpha.setValue(1);
-        alpha.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                alphaStateChanged(evt);
-            }
-        });
-
         jLabel10.setText("Grado de importancia de la feromona (α)");
-
-        beta.setValue(2);
-        beta.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                betaStateChanged(evt);
-            }
-        });
 
         jLabel11.setText("Grado de visibilidad de la ciudad (β)");
 
@@ -190,6 +176,22 @@ public class VentanaInicial extends javax.swing.JFrame {
         importGraph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 importGraphActionPerformed(evt);
+            }
+        });
+
+        beta.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        beta.setText("2.0");
+        beta.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                betaFocusLost(evt);
+            }
+        });
+
+        alpha.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        alpha.setText("1.0");
+        alpha.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                alphaFocusLost(evt);
             }
         });
 
@@ -222,35 +224,42 @@ public class VentanaInicial extends javax.swing.JFrame {
                                     .addComponent(nidoSpinner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(comidaSpinner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(importGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(166, 166, 166)
+                                .addGap(309, 309, 309)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(8, 8, 8)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(beta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(alpha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(evaporacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addCityBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addPathBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteCityBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(8, 8, 8)
+                                                .addComponent(beta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(alpha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(evaporacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel12)))
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(addCityBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addPathBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(deleteCityBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                                    .addComponent(importGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -292,13 +301,13 @@ public class VentanaInicial extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(alpha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
+                    .addComponent(alpha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(importGraph))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(evaporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,107 +333,23 @@ public class VentanaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCityBtnActionPerformed
-        AddCiudad addCityWindow = new AddCiudad(graph, myGrafo);
-        addCityWindow.setLocationRelativeTo(this);
-        addCityWindow.setVisible(true);
-    }//GEN-LAST:event_addCityBtnActionPerformed
+    private void alphaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alphaFocusLost
+        if (Float.parseFloat(alpha.getText()) < 0) {
+            alpha.setText("0");
+        }
+        importanciaFeromona = Float.parseFloat(alpha.getText());
+    }//GEN-LAST:event_alphaFocusLost
 
-    private void addPathBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPathBtnActionPerformed
-        AddCamino addPathWindow = new AddCamino(graph, myGrafo);
-        addPathWindow.setLocationRelativeTo(this);
-        addPathWindow.setVisible(true);
-    }//GEN-LAST:event_addPathBtnActionPerformed
-
-    private void nidoSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nidoSpinnerStateChanged
-        if((int) nidoSpinner.getValue() < 0){
-            nidoSpinner.setValue(0);
+    private void betaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_betaFocusLost
+        if (Float.parseFloat(beta.getText()) < 0) {
+            beta.setText("0");
         }
-        if((int) nidoSpinner.getValue() > myGrafo.numVertices-1){
-            nidoSpinner.setValue(myGrafo.numVertices-1);
-        }
-        nido = (int) nidoSpinner.getValue();
-    }//GEN-LAST:event_nidoSpinnerStateChanged
-
-    private void comidaSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_comidaSpinnerStateChanged
-        if((int) comidaSpinner.getValue() < 0){
-            comidaSpinner.setValue(0);
-        }
-        if((int) comidaSpinner.getValue() > myGrafo.numVertices-1){
-            comidaSpinner.setValue(myGrafo.numVertices-1);
-        }
-        comida = (int) comidaSpinner.getValue();
-    }//GEN-LAST:event_comidaSpinnerStateChanged
-
-    private void ciclosSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ciclosSpinnerStateChanged
-        if((int) ciclosSpinner.getValue() < 1){
-            ciclosSpinner.setValue(1);
-        }
-        ciclos = (int) ciclosSpinner.getValue();
-    }//GEN-LAST:event_ciclosSpinnerStateChanged
-
-    private void hormigasSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hormigasSpinnerStateChanged
-        if((int) hormigasSpinner.getValue() < 1){
-            hormigasSpinner.setValue(1);
-        }
-        hormigas = (int) hormigasSpinner.getValue();
-    }//GEN-LAST:event_hormigasSpinnerStateChanged
-
-    private void startSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSimulationActionPerformed
-        if(nido == comida){
-            Alerta alerta = new Alerta("La comida debe ser diferente del nido");
-            alerta.setVisible(true);
-            alerta.setLocationRelativeTo(this);
-        }
-        else{
-            myGrafo.iniciarSimulacion(nido, comida, ciclos, hormigas, importanciaFeromona, visibilidadCiudad, factorEva);
-            graphVisualizer.kill();
-            this.dispose();
-            String[] ciclosOptimos = new String[myGrafo.distanciasSimulacion.length];
-            VentanaCiclo cicleWindow = new VentanaCiclo(myGrafo, graph, nido, comida,
-                    1, ciclosOptimos, importanciaFeromona, visibilidadCiudad, factorEva, hormigas);
-            cicleWindow.setVisible(true);
-            cicleWindow.setLocationRelativeTo(this);
-        }
-    }//GEN-LAST:event_startSimulationActionPerformed
-
-    private void alphaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_alphaStateChanged
-        if((int) alpha.getValue() < 1){
-            alpha.setValue(1);
-        }
-        importanciaFeromona = (int) alpha.getValue();
-    }//GEN-LAST:event_alphaStateChanged
-
-    private void betaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_betaStateChanged
-        if((int) beta.getValue() < 1){
-            beta.setValue(1);
-        }
-        visibilidadCiudad = (int) beta.getValue();
-    }//GEN-LAST:event_betaStateChanged
-
-    private void evaporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_evaporacionFocusLost
-        evaporacion.setText(evaporacion.getText().replaceAll("[^\\d.]+|\\.(?!\\d)", ""));
-        if(evaporacion.getText().length() == 0){
-            evaporacion.setText("0.5");
-        }
-        if(Float.valueOf(evaporacion.getText()) < (float) 0){
-            evaporacion.setText("0.01");
-        }
-        else if(Float.valueOf(evaporacion.getText()) >= (float) 1.0){
-            evaporacion.setText("0.99");
-        }
-        factorEva = Float.valueOf(evaporacion.getText());
-    }//GEN-LAST:event_evaporacionFocusLost
-
-    private void deleteCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCityBtnActionPerformed
-        DeleteCiudad deleteCity = new DeleteCiudad(myGrafo, graph);
-        deleteCity.setLocationRelativeTo(this);
-        deleteCity.setVisible(true);
-    }//GEN-LAST:event_deleteCityBtnActionPerformed
+        visibilidadCiudad = Float.parseFloat(beta.getText());
+    }//GEN-LAST:event_betaFocusLost
 
     private void importGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importGraphActionPerformed
         // TODO add your handling code here:
-        
+
         ClaseFrame importWindow = new ClaseFrame();
         importWindow.setAlwaysOnTop(true);
         String textFile = importWindow.abrirArchivo().replace("ciudad\n", "");
@@ -443,24 +368,108 @@ public class VentanaInicial extends javax.swing.JFrame {
                     String[] tempInfo = aristas[j].split(",");
                     myGrafo.crearArista(Integer.parseInt(tempInfo[0]),Integer.parseInt(tempInfo[1]), Float.parseFloat(tempInfo[2]));
                 }
-            }    
+            }
             else{
                 for(int j = 0; j < aristas.length; j++){
                     String[] tempInfo = aristas[j].split(",");
                     myGrafo.crearArista(Integer.parseInt(tempInfo[0])-1,Integer.parseInt(tempInfo[1])-1, Float.parseFloat(tempInfo[2]) );
-                }       
+                }
             }
-            
+
             myGrafo.copiarEnGraphStream(graph);
         }
     }//GEN-LAST:event_importGraphActionPerformed
+
+    private void evaporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_evaporacionFocusLost
+        evaporacion.setText(evaporacion.getText().replaceAll("[^\\d.]+|\\.(?!\\d)", ""));
+        if(evaporacion.getText().length() == 0){
+            evaporacion.setText("0.5");
+        }
+        if(Float.valueOf(evaporacion.getText()) < (float) 0){
+            evaporacion.setText("0.01");
+        }
+        else if(Float.valueOf(evaporacion.getText()) >= (float) 1.0){
+            evaporacion.setText("0.99");
+        }
+        factorEva = Float.valueOf(evaporacion.getText());
+    }//GEN-LAST:event_evaporacionFocusLost
+
+    private void startSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSimulationActionPerformed
+        if(nido == comida){
+            Alerta alerta = new Alerta("La comida debe ser diferente del nido");
+            alerta.setVisible(true);
+            alerta.setLocationRelativeTo(this);
+        }
+        else{
+            myGrafo.iniciarSimulacion(nido, comida, ciclos, hormigas, importanciaFeromona, visibilidadCiudad, factorEva);
+            graphVisualizer.kill();
+            this.dispose();
+            String[] ciclosOptimos = new String[myGrafo.distanciasSimulacion.length];
+            VentanaCiclo cicleWindow = new VentanaCiclo(myGrafo, graph, nido, comida,
+                1, ciclosOptimos, importanciaFeromona, visibilidadCiudad, factorEva, hormigas);
+            cicleWindow.setVisible(true);
+            cicleWindow.setLocationRelativeTo(this);
+        }
+    }//GEN-LAST:event_startSimulationActionPerformed
+
+    private void hormigasSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hormigasSpinnerStateChanged
+        if((int) hormigasSpinner.getValue() < 1){
+            hormigasSpinner.setValue(1);
+        }
+        hormigas = (int) hormigasSpinner.getValue();
+    }//GEN-LAST:event_hormigasSpinnerStateChanged
+
+    private void ciclosSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ciclosSpinnerStateChanged
+        if((int) ciclosSpinner.getValue() < 1){
+            ciclosSpinner.setValue(1);
+        }
+        ciclos = (int) ciclosSpinner.getValue();
+    }//GEN-LAST:event_ciclosSpinnerStateChanged
+
+    private void comidaSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_comidaSpinnerStateChanged
+        if((int) comidaSpinner.getValue() < 0){
+            comidaSpinner.setValue(0);
+        }
+        if((int) comidaSpinner.getValue() > myGrafo.numVertices-1){
+            comidaSpinner.setValue(myGrafo.numVertices-1);
+        }
+        comida = (int) comidaSpinner.getValue();
+    }//GEN-LAST:event_comidaSpinnerStateChanged
+
+    private void nidoSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nidoSpinnerStateChanged
+        if((int) nidoSpinner.getValue() < 0){
+            nidoSpinner.setValue(0);
+        }
+        if((int) nidoSpinner.getValue() > myGrafo.numVertices-1){
+            nidoSpinner.setValue(myGrafo.numVertices-1);
+        }
+        nido = (int) nidoSpinner.getValue();
+    }//GEN-LAST:event_nidoSpinnerStateChanged
+
+    private void deleteCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCityBtnActionPerformed
+        DeleteCiudad deleteCity = new DeleteCiudad(myGrafo, graph);
+        deleteCity.setLocationRelativeTo(this);
+        deleteCity.setVisible(true);
+    }//GEN-LAST:event_deleteCityBtnActionPerformed
+
+    private void addPathBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPathBtnActionPerformed
+        AddCamino addPathWindow = new AddCamino(graph, myGrafo);
+        addPathWindow.setLocationRelativeTo(this);
+        addPathWindow.setVisible(true);
+    }//GEN-LAST:event_addPathBtnActionPerformed
+
+    private void addCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCityBtnActionPerformed
+        AddCiudad addCityWindow = new AddCiudad(graph, myGrafo);
+        addCityWindow.setLocationRelativeTo(this);
+        addCityWindow.setVisible(true);
+    }//GEN-LAST:event_addCityBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCityBtn;
     private javax.swing.JButton addPathBtn;
-    private javax.swing.JSpinner alpha;
-    private javax.swing.JSpinner beta;
+    private javax.swing.JTextField alpha;
+    private javax.swing.JTextField beta;
     private javax.swing.JSpinner ciclosSpinner;
     private javax.swing.JSpinner comidaSpinner;
     private javax.swing.JButton deleteCityBtn;

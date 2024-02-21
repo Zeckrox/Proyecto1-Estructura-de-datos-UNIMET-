@@ -32,8 +32,8 @@ public class FinSimulacion extends javax.swing.JFrame {
      * @param facEvaporacion
      * @param hormiga
      */
-    public FinSimulacion(Grafo myG, Graph grafo, int nest, int food, String[] optimalC, int impFeromona,
-            int visCiudad, float facEvaporacion, int hormiga) {
+    public FinSimulacion(Grafo myG, Graph grafo, int nest, int food, String[] optimalC, float impFeromona,
+            float visCiudad, float facEvaporacion, int hormiga) {
         
         initComponents();
         this.setAlwaysOnTop(true);
@@ -41,9 +41,9 @@ public class FinSimulacion extends javax.swing.JFrame {
         ciclos.setText(String.format("Ciclos: %d", optimalC.length));
         nidos.setText(String.format("Nido: (%d)%s", nest, myG.listaAdy[nest].nombre));
         comidas.setText(String.format("Comida: (%d)%s", food, myG.listaAdy[food].nombre));
-        evaporacion.setText(String.format("Factor de evaporación: %f", facEvaporacion));
-        feromona.setText(String.format("Grado de importancia de la feromona: %d", impFeromona));
-        ciudad.setText(String.format("Grado de visibilidad de la ciudad: %d", visCiudad));
+        evaporacion.setText(String.format("Factor de evaporación: %.2f", facEvaporacion));
+        feromona.setText(String.format("Grado de importancia de la feromona: %.2f", impFeromona));
+        ciudad.setText(String.format("Grado de visibilidad de la ciudad: %.2f", visCiudad));
         ciclosOptimos = optimalC;
         myGrafo = myG;
         ogGraph = grafo;
@@ -73,7 +73,7 @@ public class FinSimulacion extends javax.swing.JFrame {
 //        Aqui se personaliza el grafo de GraphStream
         graph.getNode(String.format("(%d)", nido) + myGrafo.listaAdy[nido].nombre).setAttribute("ui.class", "nido");
         graph.getNode(String.format("(%d)", comida) + myGrafo.listaAdy[comida].nombre).setAttribute("ui.class", "comida");
-        graphVisualizer.display(graph, this.getWidth()+230, this.getHeight()+100, "Ruta óptima de la simulación");        
+        graphVisualizer.display(graph, "Ruta óptima de la simulación");        
     }
 
     /**

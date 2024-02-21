@@ -13,8 +13,8 @@ public class Hormiga {
 //    Campos de la clase
     public static int nido;
     public static int comida;
-    public static int gradoImportanciaFeromona = 1;
-    public static int gradoVisibilidadCiudad = 2;
+    public static float gradoImportanciaFeromona;
+    public static float gradoVisibilidadCiudad;
     public static int aprendizaje = 1;
     public final int constanteQ = 1;
     public static int cantidadCiudades;
@@ -36,7 +36,7 @@ public class Hormiga {
  * @param importanciaFeromona Valor del grado de importancia de la feromona (α).
  * @param visibilidadCiudad Valor del grado de visibilidad de las ciudades (β).
  */
-    public Hormiga(int nest, int food, int cities, Grafo grafoPadre, int importanciaFeromona, int visibilidadCiudad){
+    public Hormiga(int nest, int food, int cities, Grafo grafoPadre, float importanciaFeromona, float visibilidadCiudad){
         nido = nest;
         ubicacion = nest;
         comida = food;
@@ -90,9 +90,11 @@ public class Hormiga {
  *
  * @param caminoActualizar NodoArista a actualizar.
  */
-    private void actualizarFeromonas(NodoArista caminoActualizar){
+    private void almacenarFeromonas(NodoArista caminoActualizar){
         float incremento = (float) constanteQ / caminoActualizar.distancia;
-        caminoActualizar.feromonas += incremento;
+        caminoActualizar.extraFeromonas += incremento;
+        int listIndex = grafo.getListIdPlusOne(caminoActualizar) - 1;
+        grafo.listaAdy[caminoActualizar.id].get(listIndex).extraFeromonas += incremento;
     }//Cierre del método
     
     
@@ -136,7 +138,7 @@ public class Hormiga {
         
 //        Si solo existe una posible ciudad la hormiga viajara a ella.
         if ( proxCiudades.length == 1 ){
-            actualizarFeromonas(proxCiudades[0]);
+            almacenarFeromonas(proxCiudades[0]);
             ubicacion = proxCiudades[0].id;
             recorrido += Integer.toString(proxCiudades[0].id)+ "→";
             distanciaRecorrida += proxCiudades[0].distancia;
@@ -149,14 +151,14 @@ public class Hormiga {
             for (int j = 0; j < proxCiudades.length; j++){
                 float numerador = 0;
                 float denominador = 0;
-                float nA = (float) Math.pow(proxCiudades[j].feromonas, gradoImportanciaFeromona);
-                float nB = (float) Math.pow((float)aprendizaje / proxCiudades[j].distancia , gradoVisibilidadCiudad);
+                float nA = (float) Math.pow(proxCiudades[j].feromonas, (float) gradoImportanciaFeromona);
+                float nB = (float) Math.pow((float)aprendizaje / proxCiudades[j].distancia , (float) gradoVisibilidadCiudad);
                 numerador += nA*nB;
                 
                 for (int index = 0; index < proxCiudades.length; index++){
                     if(j != index){
-                        float dA = (float) Math.pow(proxCiudades[index].feromonas, gradoImportanciaFeromona);
-                        float dB = (float) Math.pow((float)aprendizaje / proxCiudades[index].distancia , gradoVisibilidadCiudad);
+                        float dA = (float) Math.pow(proxCiudades[index].feromonas, (float) gradoImportanciaFeromona);
+                        float dB = (float) Math.pow((float)aprendizaje / proxCiudades[index].distancia , (float) gradoVisibilidadCiudad);
                         denominador += dA*dB;
                     }
                     
@@ -184,7 +186,7 @@ public class Hormiga {
             }
             
 //            Se modifica la posicion de la hormiga y se actualizan las ciudades visitadas y feromonas.
-            actualizarFeromonas(proxCiudades[caminoSeleccionado]);
+            almacenarFeromonas(proxCiudades[caminoSeleccionado]);
             ubicacion = proxCiudades[caminoSeleccionado].id;
             recorrido += Integer.toString(proxCiudades[caminoSeleccionado].id)+ "→";
             distanciaRecorrida += proxCiudades[caminoSeleccionado].distancia;

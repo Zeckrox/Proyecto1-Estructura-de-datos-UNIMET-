@@ -11,7 +11,7 @@ package logica;
 public class NodoArista {
     public int id;
     public float distancia;
-    public float prevFeromonas;
+    public float extraFeromonas;
     public float feromonas;
     public NodoArista next;
     public NodoArista previous;

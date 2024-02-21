@@ -16,8 +16,8 @@ public class VentanaCiclo extends javax.swing.JFrame {
     int cicloNum;
     int nido;
     int comida;
-    int importanciaFeromona;
-    int visibilidadCiudad;
+    float importanciaFeromona;
+    float visibilidadCiudad;
     float factorEva;
     int cHormigas;
     Graph ogGraph;
@@ -36,8 +36,8 @@ public class VentanaCiclo extends javax.swing.JFrame {
      * @param facEvaporacion
      * @param hormigas
      */
-    public VentanaCiclo(Grafo myG, Graph grafo,int nest, int food, int num, String[] optimalC, int impFeromona,
-            int visCiudad, float facEvaporacion, int hormigas) {
+    public VentanaCiclo(Grafo myG, Graph grafo,int nest, int food, int num, String[] optimalC, float impFeromona,
+            float visCiudad, float facEvaporacion, int hormigas) {
         initComponents();
         this.setAlwaysOnTop(true);
         importanciaFeromona = impFeromona;
@@ -86,7 +86,7 @@ public class VentanaCiclo extends javax.swing.JFrame {
 //        Aqui se personaliza el grafo de GraphStream
         graph.getNode(String.format("(%d)",nido) + myGrafo.listaAdy[nido].nombre).setAttribute("ui.class", "nido");
         graph.getNode(String.format("(%d)",comida) + myGrafo.listaAdy[comida].nombre).setAttribute("ui.class", "comida");
-        graphVisualizer.display(graph, this.getWidth(), this.getHeight(), String.format("Ruta óptima ciclo #%d", cicloNum) );
+        graphVisualizer.display(graph, String.format("Ruta óptima ciclo #%d", cicloNum) );
     }
 
     /**
