@@ -62,9 +62,11 @@
                                   <Component id="hormigasLabel1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="ciudad1" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="caminoDisplay" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -89,7 +91,11 @@
                   <Component id="feromona" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="ciudad" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="ciudad1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="caminoDisplay" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Component id="hormigasLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -167,6 +173,16 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="LEYENDA"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ciudad1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ruta optima:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="caminoDisplay">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="----"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -55,7 +55,7 @@ public class FinSimulacion extends javax.swing.JFrame {
 
 //        Se determina el camino más frecuentado y en teoria el más optimo.
         Nodo caminoIdeal = myGrafo.recorridoMasFrecuente(ciclosOptimos);
-        
+        caminoDisplay.setText(caminoIdeal.text);
 //        Finalmente se personaliza el grafo con cada uno delos vertices del camino más optimo.
         String posicionesIdeales[] = caminoIdeal.text.split("→");
         for(int pI = 0; pI < posicionesIdeales.length-1 ; pI++){
@@ -97,6 +97,8 @@ public class FinSimulacion extends javax.swing.JFrame {
         backStart = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         hormigasLabel1 = new javax.swing.JLabel();
+        ciudad1 = new javax.swing.JLabel();
+        caminoDisplay = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +133,10 @@ public class FinSimulacion extends javax.swing.JFrame {
         hormigasLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         hormigasLabel1.setText("LEYENDA");
 
+        ciudad1.setText("Ruta optima:");
+
+        caminoDisplay.setText("----");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -153,8 +159,10 @@ public class FinSimulacion extends javax.swing.JFrame {
                                 .addComponent(backStart))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(hormigasLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(ciudad1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(caminoDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -176,7 +184,11 @@ public class FinSimulacion extends javax.swing.JFrame {
                 .addComponent(feromona)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ciudad)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ciudad1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(caminoDisplay)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(hormigasLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -212,8 +224,10 @@ public class FinSimulacion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backStart;
+    private javax.swing.JLabel caminoDisplay;
     private javax.swing.JLabel ciclos;
     private javax.swing.JLabel ciudad;
+    private javax.swing.JLabel ciudad1;
     private javax.swing.JLabel comidas;
     private javax.swing.JLabel evaporacion;
     private javax.swing.JLabel feromona;

@@ -131,7 +131,7 @@ public class Grafo {
         for (int i = 0; i < numVertices; i++) {
             for (NodoArista auxNodo = listaAdy[i].first; auxNodo != null; auxNodo = auxNodo.next) {
                 float evaporacionPrev = auxNodo.prevFeromonas * (1 - factorEvaporacion);
-                float nuevasFeromonas = auxNodo.feromonas - auxNodo.prevFeromonas; 
+                float nuevasFeromonas = auxNodo.feromonas - auxNodo.prevFeromonas;
                 auxNodo.feromonas = evaporacionPrev + nuevasFeromonas;
             }
         }

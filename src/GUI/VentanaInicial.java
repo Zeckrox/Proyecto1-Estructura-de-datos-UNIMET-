@@ -377,7 +377,6 @@ public class VentanaInicial extends javax.swing.JFrame {
             alerta.setLocationRelativeTo(this);
         }
         else{
-            myGrafo.print();
             myGrafo.iniciarSimulacion(nido, comida, ciclos, hormigas, importanciaFeromona, visibilidadCiudad, factorEva);
             graphVisualizer.kill();
             this.dispose();
@@ -408,11 +407,11 @@ public class VentanaInicial extends javax.swing.JFrame {
         if(evaporacion.getText().length() == 0){
             evaporacion.setText("0.5");
         }
-        if(Float.valueOf(evaporacion.getText()) <= (float) 0){
+        if(Float.valueOf(evaporacion.getText()) < (float) 0){
             evaporacion.setText("0.01");
         }
-        else if(Float.valueOf(evaporacion.getText()) > (float) 1.0){
-            evaporacion.setText("1.0");
+        else if(Float.valueOf(evaporacion.getText()) >= (float) 1.0){
+            evaporacion.setText("0.99");
         }
         factorEva = Float.valueOf(evaporacion.getText());
     }//GEN-LAST:event_evaporacionFocusLost
