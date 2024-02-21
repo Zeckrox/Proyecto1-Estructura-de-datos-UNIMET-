@@ -1,6 +1,6 @@
 package GUI;
 import JFileChooser.ClaseFrame;
-import logica.Grafo;
+import logica.*;
 import org.graphstream.graph.*;
 
 /**
@@ -69,6 +69,7 @@ public class VentanaInicial extends javax.swing.JFrame {
         importGraph = new javax.swing.JButton();
         beta = new javax.swing.JTextField();
         alpha = new javax.swing.JTextField();
+        exportGraph = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,7 +171,7 @@ public class VentanaInicial extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Importar Grafo");
+        jLabel13.setText("Importar/Exportar");
 
         importGraph.setText("Cargar Grafo");
         importGraph.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +193,13 @@ public class VentanaInicial extends javax.swing.JFrame {
         alpha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 alphaFocusLost(evt);
+            }
+        });
+
+        exportGraph.setText("Guardar Grafo");
+        exportGraph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportGraphActionPerformed(evt);
             }
         });
 
@@ -258,7 +266,8 @@ public class VentanaInicial extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                    .addComponent(importGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(importGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(exportGraph, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -307,14 +316,15 @@ public class VentanaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exportGraph))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(evaporacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(startSimulation)
                 .addContainerGap())
         );
@@ -464,6 +474,12 @@ public class VentanaInicial extends javax.swing.JFrame {
         addCityWindow.setVisible(true);
     }//GEN-LAST:event_addCityBtnActionPerformed
 
+    private void exportGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphActionPerformed
+        AlertaGuardarArchivo newAlerta = new AlertaGuardarArchivo(myGrafo);
+        newAlerta.setVisible(true);
+        newAlerta.setLocationRelativeTo(this);
+    }//GEN-LAST:event_exportGraphActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCityBtn;
@@ -474,6 +490,7 @@ public class VentanaInicial extends javax.swing.JFrame {
     private javax.swing.JSpinner comidaSpinner;
     private javax.swing.JButton deleteCityBtn;
     private javax.swing.JTextField evaporacion;
+    private javax.swing.JButton exportGraph;
     private javax.swing.JSpinner hormigasSpinner;
     private javax.swing.JButton importGraph;
     private javax.swing.JLabel jLabel1;

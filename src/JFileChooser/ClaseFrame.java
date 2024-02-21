@@ -1,5 +1,6 @@
 package JFileChooser;
 
+import GUI.Alerta;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,8 +22,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  * Clase que permite cargar una ventana con un area de texto
  * y las opciones de abrir o guardar un archivo
+ * 
  * @author HENAO
- *
  */
 public class ClaseFrame extends JFrame implements ActionListener
 	{
@@ -33,14 +34,12 @@ public class ClaseFrame extends JFrame implements ActionListener
 		JButton botonGuardar;/*declaramos el objeto Boton*/
 		JScrollPane scrollPaneArea;
 		JFileChooser fileChooser; /*Declaramos el objeto fileChooser*/
-		String texto;
-    
+		String texto;    
 		
 		public ClaseFrame()//constructor
 		{
 			contenedor=getContentPane();
 			contenedor.setLayout(null);
-			
 			/*Creamos el objeto*/
 			fileChooser=new JFileChooser();
 			
@@ -57,7 +56,7 @@ public class ClaseFrame extends JFrame implements ActionListener
 			areaDeTexto.setWrapStyleWord(true);
 		   	scrollPaneArea = new JScrollPane();
 			scrollPaneArea.setBounds(20, 50, 350, 270);
-	        scrollPaneArea.setViewportView(areaDeTexto);
+                        scrollPaneArea.setViewportView(areaDeTexto);
 	       	
 			/*Propiedades del boton, lo instanciamos, posicionamos y
 			 * activamos los eventos*/
@@ -96,7 +95,7 @@ public class ClaseFrame extends JFrame implements ActionListener
 			
 			if (evento.getSource()==botonGuardar)
 			{
-				guardarArchivo();
+				guardarArchivo("");
 			}
 		}
 
@@ -144,33 +143,28 @@ public class ClaseFrame extends JFrame implements ActionListener
 		 * Guardamos el archivo del area 
 		 * de texto en el equipo
 		 */
-		public void guardarArchivo() {
+		public void guardarArchivo(String content) {
+	 		try{
+                            String nombre="grafo";
+                            JFileChooser file=new JFileChooser();
+                            file.showSaveDialog(this);
+                            File guarda =file.getSelectedFile();
 
-	 		try
-	 		{
-				String nombre="";
-				JFileChooser file=new JFileChooser();
-				file.showSaveDialog(this);
-				File guarda =file.getSelectedFile();
-		
-				if(guarda !=null)
-				{
-		 			nombre=file.getSelectedFile().getName();
-		 			/*guardamos el archivo y le damos el formato directamente,
-		 			 * si queremos que se guarde en formato doc lo definimos como .doc*/
-		 			FileWriter  save=new FileWriter(guarda+".txt");
-		 			save.write(areaDeTexto.getText());
-		 			save.close();
-		 			JOptionPane.showMessageDialog(null,
-		 					"El archivo se a guardado Exitosamente",
-		 					"Informacion",JOptionPane.INFORMATION_MESSAGE);
+                            if(guarda !=null){
+                                /*guardamos el archivo y le damos el formato directamente,
+                                 * si queremos que se guarde en formato doc lo definimos como .doc*/
+                                FileWriter  save = new FileWriter(guarda);
+                                save.write(content);
+                                save.close();
+                                Alerta alert = new Alerta("¡Su archivo se ha guardado exitosamente!");
+                                alert.setVisible(true);
+                                alert.setLocationRelativeTo(null);
 			    }
 	 		 }
-	 	   catch(IOException ex)
-		   {
-			 JOptionPane.showMessageDialog(null,
-					 "Su archivo no se ha guardado",
-					 "Advertencia",JOptionPane.WARNING_MESSAGE);
+                        catch(IOException ex){
+                            Alerta alert = new Alerta("¡Su archivo no se pudo guardar!");
+                                alert.setVisible(true);
+                                alert.setLocationRelativeTo(null);
 		   }
 		}
 	}
