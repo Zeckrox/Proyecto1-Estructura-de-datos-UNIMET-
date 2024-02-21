@@ -1,21 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package logica;
 import GUI.VentanaInicial;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
-/**
- *
- * @author Stefano Boschetti
- * @author Diego De Jesus
- */
-public class Grafos {
 
-    /**
-     * @param args the command line arguments
-     */
+/**
+ * Esta clase inicializa nuestro programa crea un estado inicial para los grafo
+ * e inicializa la ventana donde se visualizara el programa. 
+ * 
+ * @author: Stefano Boschetti
+ * @author: Diego De Jesus
+ * @version: 20/02/2024
+ */
+public class SimuladorDeColoniasDeHormigas {
+
+/**
+ * Método main del programa.
+ * 
+ * @param args the command line arguments
+ */
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
 //        Nuestro grafo inicial.
@@ -39,4 +41,4 @@ public class Grafos {
         myVentana.setVisible(true);
         myVentana.setLocationRelativeTo(null);
     }
-}
+}//Cierre de la clase

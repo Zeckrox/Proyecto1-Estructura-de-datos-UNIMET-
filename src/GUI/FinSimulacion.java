@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 
 import logica.Grafo;
@@ -10,10 +6,10 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.Graphs;
 
 /**
- * @author Stefano Boschetti
- * @author Diego De Jesus
+ * @author: Stefano Boschetti
+ * @author: Diego De Jesus
+ * @version: 20/02/2024
  */
-
 public class FinSimulacion extends javax.swing.JFrame {
     String[] ciclosOptimos;
     Grafo myGrafo;

@@ -1,17 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package GUI;
 
 import javax.swing.DefaultListModel;
 import logica.Grafo;
-import logica.NodoArista;
 import org.graphstream.graph.Graph;
 
 /**
- * @author Stefano Boschetti
- * @author Diego De Jesus
+ * @author: Stefano Boschetti
+ * @author: Diego De Jesus
+ * @version: 20/02/2024
  */
 public class DeleteCiudad extends javax.swing.JFrame {
     Grafo myGrafo;

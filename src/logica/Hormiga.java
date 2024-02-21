@@ -1,15 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package logica;
 import java.util.Random;
 
 /**
- * @author Stefano Boschetti
- * @author Diego De Jesus
+ * Esta clase crea una Hormiga que usará para recorrer las ListasVertices 
+ * a través de sus NodosAristas y así realizar una simulación.
+ * 
+ * @author: Stefano Boschetti
+ * @author: Diego De Jesus
+ * @version: 20/02/2024
  */
 public class Hormiga {
+//    Campos de la clase
     public static int nido;
     public static int comida;
     public static int gradoImportanciaFeromona = 1;
@@ -24,6 +25,17 @@ public class Hormiga {
     public static String recorrido = "";
     public static float distanciaRecorrida = 0;
     
+    
+/**
+ * Constructor para la Hormiga.
+ *
+ * @param nest Número identificador de la ListaVertice de donde partira la Hormiga, es decir su nido. 
+ * @param food Número identificador de la ListaVertice que busca llegar la Hormiga, es decir la comida.
+ * @param cities Cantidad de ciudades/ListasVertices en el Grafo.
+ * @param grafoPadre Grafo donde se realizara la simulación.
+ * @param importanciaFeromona Valor del grado de importancia de la feromona (α).
+ * @param visibilidadCiudad Valor del grado de visibilidad de las ciudades (β).
+ */
     public Hormiga(int nest, int food, int cities, Grafo grafoPadre, int importanciaFeromona, int visibilidadCiudad){
         nido = nest;
         ubicacion = nest;
@@ -36,8 +48,16 @@ public class Hormiga {
         gradoImportanciaFeromona = importanciaFeromona;
         gradoVisibilidadCiudad = visibilidadCiudad;
         recorrido = Integer.toString(nest)+ "→";
-    }
+    }//Cierre del constructor
     
+    
+/**
+ * Método que devuelve Verdadero si la Hormiga visitó una Ciudad dada.
+ * 
+ * @param idCiudad Número identificador de la ciudad a evaluar.
+ * @return Devuelve Verdadero si la Hormiga visito la ciudad o Falso si
+ * no se visito.
+ */
     private boolean seVisito(int idCiudad){
         for(int i = 0; i < cantidadVisitadas; i++){
             if(ciudadesVisitadas[i] == idCiudad ){
@@ -45,23 +65,46 @@ public class Hormiga {
             }
         }
         return false;
-    }
+    }//Cierre del método
     
-    private int ciudadesValidas(ListaVertice ciudadInicial) {
+    
+/**
+ * Método que devuelve la cantidad de ciudades que puede visitar la Hormiga desde un Vertice.
+ *
+ * @param ciudades Ciudad o Vertice de la que se evaluaran sus aristas adyacentes.
+ * @return Cantidad de ciudades que pueden ser visitadas por la Hormiga.
+ */
+    private int ciudadesValidas(ListaVertice ciudades) {
         int arrSize = 0;
-        for (NodoArista auxNodo = ciudadInicial.first; auxNodo != null; auxNodo = auxNodo.next) {
+        for (NodoArista auxNodo = ciudades.first; auxNodo != null; auxNodo = auxNodo.next) {
             if(!seVisito(auxNodo.id)){
                 arrSize++;
             }
         }
         return arrSize;
-    }
+    }//Cierre del método
     
+    
+/**
+ * Método que actualiza las feromonas de un Camino o Arista trás el paso de la Hormiga.
+ *
+ * @param caminoActualizar NodoArista a actualizar.
+ */
     private void actualizarFeromonas(NodoArista caminoActualizar){
         float incremento = (float) constanteQ / caminoActualizar.distancia;
         caminoActualizar.feromonas += incremento;
-    }
+    }//Cierre del método
     
+    
+/**
+ * Método que utiliza un algoritmo para de manera probabilistica desplazar
+ * la Hormiga a la arista disponible más óptima, retorna Verdadero si la Hormiga
+ * se desplazó hasta la comida o llego a una calle ciega.
+ *
+ * @return Devuelve Verdadero si la Hormiga se desplazo a la comida o
+ * se encuentra en una calle ciega y devuelve Falso si se desplazo a 
+ * cualquier otro Vertice.
+ */
     private boolean viaje(){
         Random rand = new Random();
 //        Ciudades disponibles para viajar.
@@ -151,8 +194,16 @@ public class Hormiga {
         
 //        Si la ubicacion es la comida retornamos verdadero.
         return ubicacion == comida;
-    }
+    }//Cierre del método
 
+    
+/**
+ * Método que realiza un ciclo de la simulación, movilizando la Hormiga
+ * de vertice en vertice hasta llegar a la comida o una calle ciega.
+ *
+ * @return Devuelve un arreglo con el recorrido que realizo la Hormiga y el
+ * total de distancia recorrida.
+ */
     public String[] buscarComida(){
         while(true){
             if (viaje()==true){
@@ -168,5 +219,5 @@ public class Hormiga {
                 return auxArr;
             }
         }
-    }
-}
+    }//Cierre del método
+}//Cierre de la clase

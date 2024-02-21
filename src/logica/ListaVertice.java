@@ -1,29 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package logica;
 
 /**
- *
- * @author Stefano Boschetti
- * @author Diego De Jesus
+ * Esta clase es una estructura de dato de tipo Lista Doblemente Enlazada,
+ * que funciona como Vertice o Ciudad en el Grafo.
+ * 
+ * @author: Stefano Boschetti
+ * @author: Diego De Jesus
+ * @version: 20/02/2024
  */
 public class ListaVertice {
+//    Campos de la clase
     public int id;
     public String nombre;
     public NodoArista first;
     public NodoArista last;
     public int size;
     
+    
+/**
+ * Constructor para la ListaDoble.
+     * @param name Nombre que recibira la ListaVertice o ciudad.
+     * @param identifier Número identificador de la ListaVertice o ciudad.
+ */
     public ListaVertice (String name, int identifier) {
         id = identifier;
         nombre = name;
         first = null;
         last = null;
         size = 0;
-    }
+    }//Cierre del constructor
     
+    
+/**
+ * Método que inserta un nuevo NodoArista al final de la ListaVertice.
+ *
+ * @param newData Número identificador del NodoArista al que se dirige la Arista. 
+ * @param distancia Distancia entre este NodoArista y el indicado en newData.
+ */
     public void push(int newData, float distancia){
         NodoArista newNodo = new NodoArista(newData, distancia);
         if(size==0){
@@ -41,8 +54,15 @@ public class ListaVertice {
             last = newNodo;
         }
         size += 1;
-    }
+    }//Cierre del método
+
     
+/**
+ * Método que elimina un NodoArista de la ListaVertuce dado un identificador.
+ *
+ * @param toDelete Número identificador contenido dentro del NodoArista.id a
+ * eliminar.
+ */
     public void delete(int toDelete){
         if (size != 0){
             if(first == last){
@@ -74,8 +94,17 @@ public class ListaVertice {
                 }
             }
         }
-    }
+    }//Cierre del método
     
+    
+/**
+ * Método que devuelve Verdadero si encuentra el NodoArista que contiene
+ * el número identificador dado.
+ *
+ * @param toSearch Número identificador del NodoArista a buscar.
+ * @return Devuelve Verdadero si se encuentra un NodoArista o Falso si
+ * no se encuentra.
+ */
     public boolean contains(int toSearch){
         for(NodoArista i = first; i!= null; i = i.next){
             if(i.id == toSearch){
@@ -83,8 +112,13 @@ public class ListaVertice {
             }
         }
         return false;
-    }
+    }//Cierre del método
     
+    
+/**
+ * Método que imprime de forma visual el contenido de todos los NodoArista en la
+ * lista.
+ */
     public void print(){
         for(NodoArista i = first; i != null; i = i.next){
             System.out.print(i.id);
@@ -93,5 +127,5 @@ public class ListaVertice {
             System.out.print(", ");
         }
         System.out.println("");
-    }
-}
+    }//Cierre del método
+}//Cierre de la clase

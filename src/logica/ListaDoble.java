@@ -1,25 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package logica;
 
 /**
- *
- * @author Stefano Boschetti
- * @author Diego De Jesus
+ * Esta clase es una estructura de dato de tipo Lista Doblemente Enlazada.
+ * 
+ * @author: Stefano Boschetti
+ * @author: Diego De Jesus
+ * @version: 20/02/2024
  */
 public class ListaDoble {
+//    Campos de la clase
     public Nodo first;
     public Nodo last;
     public int size;
-    
+
+/**
+ * Constructor para la ListaDoble.
+ */
     public ListaDoble () {
         first = null;
         last = null;
         size = 0;
-    }
+    }//Cierre del constructor
     
+    
+/**
+ * Método que inserta un nuevo Nodo al final de la lista.
+ *
+ * @param newData Cadena de texto que se usará para crear el Nodo a insertar.
+ */
     public void push(String newData){
         Nodo newNodo = new Nodo(newData);
         if(size==0){
@@ -37,8 +45,13 @@ public class ListaDoble {
             last = newNodo;
         }
         size += 1;
-    }
-    
+    }//Cierre del método
+
+/**
+ * Método que elimina un Nodo de la lista dada una cadena de texto.
+ *
+ * @param toDelete Cadena de texto contenida dentro del Nodo.text a eliminar.
+ */    
     public void delete(String toDelete){
         if (size != 0){
             if(first == last){
@@ -70,8 +83,17 @@ public class ListaDoble {
                 }
             }
         }
-    }
+    }//Cierre del método
     
+    
+/**
+ * Método que devuelve Verdadero si encuentra el Nodo
+ * que contiene la cadena de texto dada.
+ *
+ * @param toSearch Cadena de texto a buscar.
+ * @return Devuelve Verdadero si se encuentra la cadena de texto
+ * o Falso si no se encuentra.
+ */
     public boolean contains(String toSearch){
         for(Nodo i = first; i!= null; i = i.next){
             if(i.text.equals(toSearch)){
@@ -79,11 +101,15 @@ public class ListaDoble {
             }
         }
         return false;
-    }
+    }//Cierre del método
     
+    
+/**
+ * Método que imprime de forma visual el contenido de todos los Nodos en la lista.
+ */
     public void print(){
         for(Nodo i = first; i != null; i = i.next){
             System.out.println(i.text);
         }
-    }
-}
+    }//Cierre del método
+}//Cierre de la clase
