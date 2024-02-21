@@ -60,7 +60,7 @@ public class AddCiudad extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel2.setForeground(java.awt.Color.gray);
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Inserte el nombre de la ciudad");
+        jLabel2.setText("Insertar nombre o dejar vacio");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
         jLabel3.setForeground(java.awt.Color.gray);
@@ -133,13 +133,15 @@ public class AddCiudad extends javax.swing.JFrame {
             myAlerta.setVisible(true);
         }
         else{
-            for(int i = 0 ; i < myGrafo.numVertices; i++){
-                if ( myGrafo.listaAdy[i].nombre.equals(nombreNuevo.getText()) ){
-                    Alerta myAlerta = new Alerta("Esta ciudad ya existe");
-                    myAlerta.setLocationRelativeTo(this);
-                    myAlerta.setVisible(true);
-                    ok = false;
-                    break;
+            if(!nombreNuevo.getText().equals("")){
+                for(int i = 0 ; i < myGrafo.numVertices; i++){
+                    if ( myGrafo.listaAdy[i].nombre.equals(nombreNuevo.getText()) ){
+                        Alerta myAlerta = new Alerta("Esta ciudad ya existe");
+                        myAlerta.setLocationRelativeTo(this);
+                        myAlerta.setVisible(true);
+                        ok = false;
+                        break;
+                    }
                 }
             }
             if(ok){
@@ -164,13 +166,15 @@ public class AddCiudad extends javax.swing.JFrame {
             myAlerta.setVisible(true);
         }
         else{
-            for(int i = 0 ; i < myGrafo.numVertices; i++){
-                if ( myGrafo.listaAdy[i].nombre.equals(nombreNuevo.getText()) ){
-                    Alerta myAlerta = new Alerta("Esta ciudad ya existe");
-                    myAlerta.setLocationRelativeTo(this);
-                    myAlerta.setVisible(true);
-                    ok = false;
-                    break;
+            if(!nombreNuevo.getText().equals("")){
+                for(int i = 0 ; i < myGrafo.numVertices; i++){
+                    if ( myGrafo.listaAdy[i].nombre.equals(nombreNuevo.getText()) ){
+                        Alerta myAlerta = new Alerta("Esta ciudad ya existe");
+                        myAlerta.setLocationRelativeTo(this);
+                        myAlerta.setVisible(true);
+                        ok = false;
+                        break;
+                    }
                 }
             }
             if(ok){

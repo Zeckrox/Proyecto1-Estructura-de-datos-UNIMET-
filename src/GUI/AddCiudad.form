@@ -113,7 +113,7 @@
               <Color blue="80" green="80" id="gray" palette="1" red="80" type="palette"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Inserte el nombre de la ciudad"/>
+            <Property name="text" type="java.lang.String" value="Insertar nombre o dejar vacio"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
