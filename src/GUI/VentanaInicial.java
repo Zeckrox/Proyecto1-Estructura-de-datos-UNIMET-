@@ -4,11 +4,15 @@ import logica.*;
 import org.graphstream.graph.*;
 
 /**
+ * Esta clase crea una ventana inicial donde el usuario podrá modificar el grafo
+ * a su gusto, importar o exportar grafos y ajustar los parametros de la simulación.
+ * 
  * @author: Stefano Boschetti
  * @author: Diego De Jesus
  * @version: 20/02/2024
  */
 public class VentanaInicial extends javax.swing.JFrame {
+//    Campos de la clase
     Grafo myGrafo;
     Graph graph;
     int nido = 0;
@@ -20,11 +24,12 @@ public class VentanaInicial extends javax.swing.JFrame {
     float factorEva = (float) 0.5;
     GraphViewer graphVisualizer = new GraphViewer();
     
-    /**
-     * Creates new form VentanaInicial
-     * @param myG
-     * @param gStream
-     */
+/**
+ * Constructor de la ventana VentanaInicial.
+ * 
+ * @param myG Grafo propio de la simulación.
+ * @param gStream Grafo de GraphStream.
+ */
     public VentanaInicial(Grafo myG, Graph gStream) {
         initComponents();
         this.setAlwaysOnTop(true);
@@ -343,6 +348,11 @@ public class VentanaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+/**
+ * Método que asigna el valor de "alpha" a el atributo "importanciaFeromona"
+ * cuando "alpha" pierde el foco del usuario, además se encarga de que se 
+ * inserten valores validos.
+ */    
     private void alphaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alphaFocusLost
         if (Float.parseFloat(alpha.getText()) < 0) {
             alpha.setText("0");
@@ -350,6 +360,11 @@ public class VentanaInicial extends javax.swing.JFrame {
         importanciaFeromona = Float.parseFloat(alpha.getText());
     }//GEN-LAST:event_alphaFocusLost
 
+/**
+ * Método que asigna el valor de "beta" a el atributo "visibilidadCiudad"
+ * cuando "beta" pierde el foco del usuario, además se encarga de que se 
+ * inserten valores validos.
+ */   
     private void betaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_betaFocusLost
         if (Float.parseFloat(beta.getText()) < 0) {
             beta.setText("0");
@@ -357,6 +372,11 @@ public class VentanaInicial extends javax.swing.JFrame {
         visibilidadCiudad = Float.parseFloat(beta.getText());
     }//GEN-LAST:event_betaFocusLost
 
+/**
+ * Método que al usuario pulsar el botón "importGraph" inicia un JFileChooser 
+ * donde el usuario seleccionara un archivo .txt del cual se generara 
+ * un nuevo grafo para la simulación.
+ */   
     private void importGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importGraphActionPerformed
         // TODO add your handling code here:
 
@@ -389,7 +409,12 @@ public class VentanaInicial extends javax.swing.JFrame {
             myGrafo.copiarEnGraphStream(graph);
         }
     }//GEN-LAST:event_importGraphActionPerformed
-
+  
+/**
+ * Método que asigna el valor de "evaporacion" a el atributo "factorEva"
+ * cuando "evaporacion" pierde el foco del usuario, además se encarga de que se 
+ * inserten valores validos.
+ */   
     private void evaporacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_evaporacionFocusLost
         evaporacion.setText(evaporacion.getText().replaceAll("[^\\d.]+|\\.(?!\\d)", ""));
         if(evaporacion.getText().length() == 0){
@@ -404,6 +429,11 @@ public class VentanaInicial extends javax.swing.JFrame {
         factorEva = Float.valueOf(evaporacion.getText());
     }//GEN-LAST:event_evaporacionFocusLost
 
+ /**
+ * Método que al usuario pulsar el botón "startSimulation" prepará al grafo para
+ * inciar la simulación y desplega la información del primer ciclo en una ventana
+ * de tipo "VentanaCiclo".
+ */    
     private void startSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSimulationActionPerformed
         if(nido == comida){
             Alerta alerta = new Alerta("La comida debe ser diferente del nido");
@@ -422,6 +452,10 @@ public class VentanaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_startSimulationActionPerformed
 
+/**
+ * Método que al cambiar el estado de "hormigasSpinner" asigna su valor a
+ * el atributo "hormigas", además se encarga de que se inserten valores validos.
+ */    
     private void hormigasSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hormigasSpinnerStateChanged
         if((int) hormigasSpinner.getValue() < 1){
             hormigasSpinner.setValue(1);
@@ -429,6 +463,10 @@ public class VentanaInicial extends javax.swing.JFrame {
         hormigas = (int) hormigasSpinner.getValue();
     }//GEN-LAST:event_hormigasSpinnerStateChanged
 
+/**
+ * Método que al cambiar el estado de "ciclosSpinner" asigna su valor a
+ * el atributo "ciclos", además se encarga de que se inserten valores validos.
+ */    
     private void ciclosSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ciclosSpinnerStateChanged
         if((int) ciclosSpinner.getValue() < 1){
             ciclosSpinner.setValue(1);
@@ -436,6 +474,10 @@ public class VentanaInicial extends javax.swing.JFrame {
         ciclos = (int) ciclosSpinner.getValue();
     }//GEN-LAST:event_ciclosSpinnerStateChanged
 
+/**
+ * Método que al cambiar el estado de "comidaSpinner" asigna su valor a
+ * el atributo "comida", además se encarga de que se inserten valores validos.
+ */    
     private void comidaSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_comidaSpinnerStateChanged
         if((int) comidaSpinner.getValue() < 0){
             comidaSpinner.setValue(0);
@@ -446,6 +488,10 @@ public class VentanaInicial extends javax.swing.JFrame {
         comida = (int) comidaSpinner.getValue();
     }//GEN-LAST:event_comidaSpinnerStateChanged
 
+/**
+ * Método que al cambiar el estado de "nidoSpinner" asigna su valor a
+ * el atributo "nido", además se encarga de que se inserten valores validos.
+ */        
     private void nidoSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nidoSpinnerStateChanged
         if((int) nidoSpinner.getValue() < 0){
             nidoSpinner.setValue(0);
@@ -456,24 +502,42 @@ public class VentanaInicial extends javax.swing.JFrame {
         nido = (int) nidoSpinner.getValue();
     }//GEN-LAST:event_nidoSpinnerStateChanged
 
+/**
+ * Método que inicia una ventana "DeleteCiudad" cuando el usuario pulsa el
+ * botón "deleteCity", ventana donde el usuario podrá seleccionar una Ciudad
+ * para ser eliminada del Grafo.
+ */    
     private void deleteCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCityBtnActionPerformed
         DeleteCiudad deleteCity = new DeleteCiudad(myGrafo, graph);
         deleteCity.setLocationRelativeTo(this);
         deleteCity.setVisible(true);
     }//GEN-LAST:event_deleteCityBtnActionPerformed
 
+/**
+ * Método que inicia una ventana "AddCamino" cuando el usuario pulsa el botón "addPath",
+ * ventana donde el usuario podrá crear un camino o arista entre dos ciudades.
+ */       
     private void addPathBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPathBtnActionPerformed
         AddCamino addPathWindow = new AddCamino(graph, myGrafo);
         addPathWindow.setLocationRelativeTo(this);
         addPathWindow.setVisible(true);
     }//GEN-LAST:event_addPathBtnActionPerformed
 
+/**
+ * Método que inicia una ventana "AddCiudad" cuando el usuario pulsa el botón "addCity",
+ * ventana donde el usuario podrá crear una nueva Ciudad o Vertice.
+ */           
     private void addCityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCityBtnActionPerformed
         AddCiudad addCityWindow = new AddCiudad(graph, myGrafo);
         addCityWindow.setLocationRelativeTo(this);
         addCityWindow.setVisible(true);
     }//GEN-LAST:event_addCityBtnActionPerformed
 
+/**
+ * Método que inicia una ventana "AlertaGuardarArchivo" cuando el usuario pulsa el
+ * botón "exportGraph", ventana donde se mostrará una advertencia antes de inciar
+ * el JFileChooser para guardar el grafo en un archivo .txt .
+ */    
     private void exportGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportGraphActionPerformed
         AlertaGuardarArchivo newAlerta = new AlertaGuardarArchivo(myGrafo);
         newAlerta.setVisible(true);
@@ -510,4 +574,4 @@ public class VentanaInicial extends javax.swing.JFrame {
     private javax.swing.JSpinner nidoSpinner;
     private javax.swing.JButton startSimulation;
     // End of variables declaration//GEN-END:variables
-}
+}//Cierre de la clase

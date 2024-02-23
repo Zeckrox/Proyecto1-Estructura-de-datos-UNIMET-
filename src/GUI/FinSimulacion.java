@@ -6,11 +6,15 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.Graphs;
 
 /**
+ * Esta clase crea una ventana donde se mostrará toda la información acerca
+ * de una simulación.
+ * 
  * @author: Stefano Boschetti
  * @author: Diego De Jesus
  * @version: 20/02/2024
  */
 public class FinSimulacion extends javax.swing.JFrame {
+//    Campos de la clase
     String[] ciclosOptimos;
     Grafo myGrafo;
     int nido;
@@ -21,16 +25,17 @@ public class FinSimulacion extends javax.swing.JFrame {
     
 
     /**
-     * Creates new form FinSimulacion
-     * @param myG
-     * @param grafo
-     * @param nest
-     * @param food
-     * @param optimalC
-     * @param impFeromona
-     * @param visCiudad
-     * @param facEvaporacion
-     * @param hormiga
+     * Constructor de la ventana FinSimulacion.
+     * 
+     * @param myG Grafo propio de la simulación.
+     * @param grafo Grafo de GraphStream.
+     * @param nest Identificador del nido.
+     * @param food Identificador de la comida.
+     * @param optimalC Arreglo de caminos optimos de cada ciclo.
+     * @param impFeromona Valor del grado de importancia de la feromona.
+     * @param visCiudad Valor del grado de visibilidad de la ciudad.
+     * @param facEvaporacion Valor del factor de evaporación de las feromonas.
+     * @param hormiga Cantidad de hormigas.
      */
     public FinSimulacion(Grafo myG, Graph grafo, int nest, int food, String[] optimalC, float impFeromona,
             float visCiudad, float facEvaporacion, int hormiga) {
@@ -74,7 +79,7 @@ public class FinSimulacion extends javax.swing.JFrame {
         graph.getNode(String.format("(%d)", nido) + myGrafo.listaAdy[nido].nombre).setAttribute("ui.class", "nido");
         graph.getNode(String.format("(%d)", comida) + myGrafo.listaAdy[comida].nombre).setAttribute("ui.class", "comida");
         graphVisualizer.display(graph, "Ruta óptima de la simulación");        
-    }
+    }//Cierre del constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -213,6 +218,9 @@ public class FinSimulacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+/**
+ * Método que cierra esta Ventana y vuelve a la VentanaInicial.
+ */
     private void backStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backStartActionPerformed
         // TODO add your handling code here:
         graphVisualizer.kill();
@@ -238,4 +246,4 @@ public class FinSimulacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nidos;
     // End of variables declaration//GEN-END:variables
-}
+}//Cierre de la clase

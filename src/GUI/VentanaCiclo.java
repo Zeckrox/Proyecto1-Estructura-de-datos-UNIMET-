@@ -6,11 +6,15 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.Graphs;
 
 /**
+ * Esta clase crea una ventana donde se mostrará toda la información sobre un
+ * ciclo de la simulación
+ * 
  * @author: Stefano Boschetti
  * @author: Diego De Jesus
  * @version: 20/02/2024
  */
 public class VentanaCiclo extends javax.swing.JFrame {
+//    Campos de la clase
     String[] ciclosOptimos;
     Grafo myGrafo;
     int cicloNum;
@@ -23,18 +27,21 @@ public class VentanaCiclo extends javax.swing.JFrame {
     Graph ogGraph;
     Graph graph;
     GraphViewer graphVisualizer = new GraphViewer();
+    
+    
     /**
-     * Creates new form VentanaCiclo
-     * @param myG
-     * @param grafo
-     * @param nest
-     * @param food
-     * @param num
-     * @param optimalC
-     * @param impFeromona
-     * @param visCiudad
-     * @param facEvaporacion
-     * @param hormigas
+     * Constructor de la ventana VentanaCiclo.
+     * 
+     * @param myG Grafo propio de la simulación.
+     * @param grafo Grafo de GraphStream.
+     * @param nest Identificador del nido.
+     * @param food Identificador de la comida.
+     * @param num Número de ciclo a mostrar.
+     * @param optimalC Arreglo de caminos optimos de cada ciclo.
+     * @param impFeromona Valor del grado de importancia de la feromona.
+     * @param visCiudad Valor del grado de visibilidad de la ciudad.
+     * @param facEvaporacion Valor del factor de evaporación de las feromonas.
+     * @param hormigas Cantidad de hormigas .
      */
     public VentanaCiclo(Grafo myG, Graph grafo,int nest, int food, int num, String[] optimalC, float impFeromona,
             float visCiudad, float facEvaporacion, int hormigas) {
@@ -182,6 +189,12 @@ public class VentanaCiclo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+/**
+ * Método que cierra esta Ventana y genera una nueva VentanCiclo con 
+ * información del siguente ciclo, si se tratá de el ultimo ciclo genera una
+ * ventana FinSimulacion.
+ */
     private void nextCicleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextCicleBtnActionPerformed
         if(cicloNum+1 > myGrafo.distanciasSimulacion.length){
             FinSimulacion newEnd = new FinSimulacion(myGrafo, ogGraph, nido, comida, ciclosOptimos,
@@ -209,4 +222,4 @@ public class VentanaCiclo extends javax.swing.JFrame {
     private javax.swing.JButton nextCicleBtn;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
-}
+}//Cierre de la clase

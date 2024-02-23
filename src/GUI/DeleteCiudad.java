@@ -5,19 +5,25 @@ import logica.Grafo;
 import org.graphstream.graph.Graph;
 
 /**
+ * Esta clase crea una ventana donde el usuario puede decidir una
+ * ciudad o Vertice para eliminar del grafo.
+ * 
  * @author: Stefano Boschetti
  * @author: Diego De Jesus
  * @version: 20/02/2024
  */
 public class DeleteCiudad extends javax.swing.JFrame {
+//    Campos de la clase
     Grafo myGrafo;
     Graph graph;
     int cityToDelete;
-    /**
-     * Creates new form DeleteCidad
-     * @param myG
-     * @param gStream
-     */
+
+/**
+ * Constructor de la ventana DeleteCiudad.
+ *
+ * @param gStream Grafo de GraphStream.
+ * @param myG Grafo propio de la simulación.
+ */
     public DeleteCiudad(Grafo myG, Graph gStream) {
         initComponents();
         myGrafo = myG;
@@ -29,7 +35,7 @@ public class DeleteCiudad extends javax.swing.JFrame {
         for(int i = 0; i < myGrafo.numVertices ; i++){
             mod.addElement(String.format("(%d)",i) + myGrafo.listaAdy[i].nombre);
         }
-    }
+    }//Cierre del constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -110,10 +116,19 @@ public class DeleteCiudad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+/**
+ * Método que asigna un valor a "cityToDelete" cuando la lista "citiesList"
+ * cambia de valor.
+ */
     private void citiesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_citiesListValueChanged
         cityToDelete = Integer.parseInt(citiesList.getSelectedValue().replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_citiesListValueChanged
 
+    
+/**
+ * Método que elimina la ciudad seleccionada en "citiesList" del grafo propio y 
+ * el grafo para visualizar de GraphStream.
+ */
     private void deleteCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCityActionPerformed
         if(myGrafo.numVertices == 4){
             Alerta myAlerta = new Alerta("Debes tener al menos 4 ciudades");
@@ -125,7 +140,7 @@ public class DeleteCiudad extends javax.swing.JFrame {
             myGrafo.vaciarGraphStream(graph);
             myGrafo.copiarEnGraphStream(graph);
         }
-        ;        this.dispose();
+        this.dispose();
     }//GEN-LAST:event_deleteCityActionPerformed
 
 
@@ -136,4 +151,4 @@ public class DeleteCiudad extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-}
+}//Cierre de la clase

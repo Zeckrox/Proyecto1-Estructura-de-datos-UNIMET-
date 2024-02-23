@@ -22,8 +22,8 @@ public class GraphViewer {
  * Método que crea una ventana nueva donde se representara
  * un grafo de la libreria GraphStream.
  *
-     * @param graph Grafo de GraphStream a representar.
-     * @param windowName Nombre de la ventana a generar.
+ * @param graph Grafo de GraphStream a representar.
+ * @param windowName Nombre de la ventana a generar.
  */
     public void display(Graph graph, String windowName) {
 //        Se crea el JFrame.
@@ -56,13 +56,13 @@ public class GraphViewer {
 //        Se hace visible el JFrame.
         frame.setAlwaysOnTop(true);
         frame.setVisible(true);
-    }
+    }//Cierre del método
     
     /**
      * Método que cierra la ventana.
      */
     public void kill(){
         frame.dispose();
-    }
+    }//Cierre del método
     
-}
+}//Cierre de la clase
